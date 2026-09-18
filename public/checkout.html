@@ -42,10 +42,10 @@
       <nav id="menu" class="nav" aria-label="Navegação principal">
         <a href="/colecao">Criações</a
         ><a href="/encontre-seu-aroma">Encontre seu aroma</a
-        ><a href="/sobre">A AMEVURI</a><a href="/journal">Journal</a
+        ><a href="/sobre">A AMEVURI</a><a href="/journal">Journal</a><a href="/prive">Privé</a
         ><a href="/acompanhar-pedido">Acompanhar pedido</a
         ><a class="nav-cta" href="/colecao">Continuar escolhendo</a>
-      <a href="/prive">Privé</a></nav>
+      </nav>
     </header>
     <div class="page-nav" aria-label="Navegação da página">
       <a class="page-back" href="/colecao" data-smart-back>
@@ -193,7 +193,7 @@
                 para escolher entre as formas de pagamento disponíveis para esta
                 compra.
               </p>
-              <p class="checkout-copy">Consulte nossa <a href="/trocas-e-devolucoes" target="_blank" rel="noopener">política de trocas e devoluções</a> antes de continuar.</p><button class="btn btn-primary" type="button" data-go-payment>
+              <button class="btn btn-primary" type="button" data-go-payment>
                 Continuar para pagamento seguro
               </button>
               <p class="checkout-status notice" data-checkout-status>
@@ -217,6 +217,14 @@
             <span>Frete</span
             ><strong data-checkout-shipping>A consultar</strong>
           </div>
+          <div class="prive-checkout-credit" data-prive-checkout hidden>
+            <label for="prive-credit">Crédito AMEVURI Privé</label>
+            <select id="prive-credit" data-prive-credit><option value="0">Não utilizar</option></select>
+            <small data-prive-credit-note></small>
+          </div>
+          <div class="summary-line" data-prive-discount-row hidden>
+            <span>Crédito Privé</span><strong data-prive-discount>− R$ 0,00</strong>
+          </div>
           <div class="summary-line total">
             <span>Total</span><strong data-checkout-total>R$ 0,00</strong>
           </div>
@@ -239,10 +247,10 @@
         />
         <p>Perfume, matéria e memória.</p>
       </div>
-      <div class="footer-links"><a href="/prive">AMEVURI Privé</a><a href="/trocas-e-devolucoes">Trocas e devoluções</a>
+      <div class="footer-links">
         <a href="/colecao">Criações</a
         ><a href="/encontre-seu-aroma">Encontre seu aroma</a
-        ><a href="/journal">Journal</a
+        ><a href="/journal">Journal</a><a href="/prive">AMEVURI Privé</a
         ><a href="/acompanhar-pedido">Acompanhar pedido</a
         ><a
           href="https://www.instagram.com/amevuri/"
