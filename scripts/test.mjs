@@ -524,6 +524,48 @@ test("Transação pendente mantém reserva mesmo após vencimento da sessão", a
   assert.equal((await h.store.getOrder(data.orderId)).status, "reserved");
   assert.equal((await h.store.getInventory())[cart[0].id], 8);
 });
+test("Miniaturas têm preço de 8,99 e conteúdo de 20g no servidor", async () => {
+  const { CATALOG, validateItems } = await import("../src/lib/catalog.js");
+  const items = ["mini-cumaru-20", "mini-sakura-20"].map(id => ({id, quantity: 1}));
+  assert.equal(validateItems(items).subtotal, 17.98);
+  for (const item of items) {
+    assert.equal(CATALOG[item.id].size, "20g");
+    assert.equal(CATALOG[item.id].price, 8.99);
+  }
+});
+test("Novos SKUs entram no estoque sem repor produtos esgotados", async () => {
+  const h = await harness();
+  const { CATALOG } = await import("../src/lib/catalog.js");
+  h.memory.set("inventory", {"vela-cumaru-120": 0, "vela-sakura-120": 3});
+  const stock = await h.store.getInventory();
+  assert.equal(stock["vela-cumaru-120"], 0);
+  assert.equal(stock["vela-sakura-120"], 3);
+  assert.equal(stock["mini-cumaru-20"], CATALOG["mini-cumaru-20"].initialStock);
+  stock["mini-cumaru-20"] = 0;
+  h.memory.set("inventory", stock);
+  assert.equal((await h.store.getInventory())["mini-cumaru-20"], 0);
+});
+test("Miniaturas calculam frete com peso bruto e reservam estoque no checkout", async () => {
+  const h = await harness();
+  const items = [{id:"mini-cumaru-20",quantity:1},{id:"mini-sakura-20",quantity:1}];
+  const quote = await h.api("/api/shipping-quote", {postalCode: customer.postalCode, items});
+  assert.equal(quote.status, 200);
+  const shippingCall = h.state.calls.find(c => c.url.includes("shipment/calculate"));
+  const body = typeof shippingCall.body === "string" ? JSON.parse(shippingCall.body) : shippingCall.body;
+  for (const product of body.products) {
+    assert.equal(product.weight, 0.04);
+    assert.equal(product.width, 6);
+    assert.equal(product.height, 2);
+    assert.equal(product.length, 6);
+    assert.equal(product.insurance_value, 8.99);
+  }
+  const checkout = await h.api("/api/create-checkout", {...payload(), items});
+  assert.equal(checkout.status, 200);
+  const order = await h.store.getOrder(checkout.data.orderId);
+  assert.equal(order.subtotal, 17.98);
+  assert.equal((await h.store.getInventory())["mini-cumaru-20"], 9);
+  assert.equal((await h.store.getInventory())["mini-sakura-20"], 9);
+});
 let passed = 0;
 for (const { name, fn } of tests) {
   try {

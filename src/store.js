@@ -19,8 +19,8 @@ export class AmevuriStore extends DurableObject {
   async getInventory() {
     return this.ctx.storage.transaction(async (t) => {
       let stock = await t.get("inventory");
-      if (!stock) {
-        stock = seedInventory();
+      if (!stock || Object.keys(CATALOG).some((id) => !Object.hasOwn(stock, id))) {
+        stock = { ...seedInventory(), ...(stock || {}) };
         await t.put("inventory", stock);
       }
       return stock;
@@ -40,7 +40,7 @@ export class AmevuriStore extends DurableObject {
         }
         return { created: false, order: old };
       }
-      const stock = (await t.get("inventory")) || seedInventory();
+      const stock = { ...seedInventory(), ...((await t.get("inventory")) || {}) };
       for (const i of order.items) {
         if (Number(stock[i.id] || 0) < i.quantity) {
           const e = new Error(
@@ -381,7 +381,7 @@ export class AmevuriStore extends DurableObject {
         o = await t.get(key);
       if (!o) return null;
       if (o.status === "paid") return o;
-      const stock = (await t.get("inventory")) || seedInventory();
+      const stock = { ...seedInventory(), ...((await t.get("inventory")) || {}) };
       if (status === "paid") {
         if (o.stockReleased) {
           for (const i of o.items)

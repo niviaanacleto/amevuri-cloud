@@ -1,4 +1,7 @@
 export const CATALOG = Object.freeze({
+"mini-cumaru-20": {"id": "mini-cumaru-20", "name": "Miniatura de vela aromática", "fragrance": "Cumaru & Sândalo", "format": "Miniatura", "size": "20g", "price": 8.99, "initialStock": 10, "shipping": {"weightKg": 0.04, "widthCm": 6, "heightCm": 2, "lengthCm": 6}},
+"mini-sakura-20": {"id": "mini-sakura-20", "name": "Miniatura de vela aromática", "fragrance": "Árvore de Sakura & Musk", "format": "Miniatura", "size": "20g", "price": 8.99, "initialStock": 10, "shipping": {"weightKg": 0.04, "widthCm": 6, "heightCm": 2, "lengthCm": 6}},
+
   "vela-cumaru-120": {
     id: "vela-cumaru-120",
     name: "Vela Aromática",

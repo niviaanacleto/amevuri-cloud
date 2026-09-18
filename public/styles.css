@@ -4764,3 +4764,6 @@ img.img-failed {
   .prive-account-head { align-items: start; flex-direction: column; }
   .prive-redeem { padding: 26px; }
 }
+
+.policy-content{max-width:1000px;margin:auto;padding-top:0}.policy-content section{margin-bottom:42px}.policy-content h2{font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:18px}.policy-content p{line-height:1.85;margin-bottom:16px}.policy-content a,.checkout-copy a{text-decoration:underline;text-underline-offset:3px}.policy-hero{padding-top:170px!important}
+.commerce-shop-grid .shop-card.hidden{display:none}

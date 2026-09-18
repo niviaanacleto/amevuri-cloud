@@ -129,6 +129,12 @@ export async function api(env, store, origin, path, options = {}) {
   return d;
 }
 export async function shippingQuote(env, store, origin, { postalCode, items }) {
+  if (items.some((p) => !p.shipping || ![p.shipping.weightKg, p.shipping.widthCm, p.shipping.heightCm, p.shipping.lengthCm].every((n) => Number.isFinite(n) && n > 0))) {
+    const error = new Error("O envio deste produto precisa ser confirmado com a AMEVURI.");
+    error.code = "SHIPPING_NOT_CONFIGURED";
+    error.status = 503;
+    throw error;
+  }
   const destination = digits(postalCode);
   if (destination.length !== 8) {
     const e = new Error("Informe um CEP válido.");

@@ -7,6 +7,9 @@
       currency: "BRL",
     }).format(Number(n) || 0);
   const PRODUCTS = {
+"mini-cumaru-20": {"id": "mini-cumaru-20", "name": "Miniatura de vela aromática", "size": "20g", "fragrance": "Cumaru & Sândalo", "price": 8.99},
+"mini-sakura-20": {"id": "mini-sakura-20", "name": "Miniatura de vela aromática", "size": "20g", "fragrance": "Árvore de Sakura & Musk", "price": 8.99},
+
     "vela-cumaru-120": {
       id: "vela-cumaru-120",
       name: "Vela Aromática",
@@ -279,7 +282,7 @@
         : "home";
     const photo = document.querySelector(".real-product-main");
     if (photo) {
-      photo.src =
+      photo.src = p.id.startsWith("mini-") ? `/assets/miniaturas/${scent}-20g.png` :
         format === "home"
           ? scent === "cumaru"
             ? "/assets/cumaru/cumaru-home-parfum.webp"
