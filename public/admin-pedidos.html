@@ -70,8 +70,6 @@
             Reenviar confirmação</button
           ><button class="btn btn-ghost" type="button" data-resend-tracking>
             Reenviar email de rastreio
-          </button><button class="btn btn-ghost" type="button" data-mark-refunded>
-            Marcar reembolso confirmado
           </button>
         </form>
         <div class="admin-order-summary" data-admin-summary></div>
@@ -195,14 +193,6 @@
               msg.textContent = err.message;
             }
           });
-        root.querySelector("[data-mark-refunded]").addEventListener("click", async () => {
-          if (!current || !confirm("Confirma que o reembolso já foi concluído na SumUp? Esta ação estornará pontos e devolverá créditos Privé.")) return;
-          msg.textContent = "Registrando reembolso e ajustando o Privé…";
-          try {
-            render(await call("POST", { orderId: current.id, financialStatus: "refunded", refundReason: "Reembolso confirmado pela administração" }));
-            msg.textContent = "Reembolso registrado. Pontos e créditos foram ajustados.";
-          } catch (err) { msg.textContent = err.message; }
-        });
       })();
     </script>
   </body>
