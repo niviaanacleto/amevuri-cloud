@@ -326,7 +326,7 @@
               <button type="button" data-answer="refugio">
                 Lençóis limpos, luz baixa, silêncio</button
               ><button type="button" data-answer="presenca">
-                Madeira, livros, jantar que se prolonga</button
+                Rosas, especiarias, um jantar que se prolonga</button
               ><button type="button" data-answer="leveza">
                 Flores claras, janela aberta, manhã</button
               ><button type="button" data-answer="aconchego">
@@ -378,6 +378,7 @@
     <footer class="footer">
       <div class="wrap">© 2026 AMEVURI · Perfumaria para o lar</div>
     </footer>
+    <script src="/aroma-quiz.js"></script>
     <script>
       (function () {
         "use strict";
@@ -387,36 +388,6 @@
         const debug = document.getElementById("debug");
         let step = 1;
         let answers = [];
-        const configs = {
-          refugio: {
-            title: "Refúgio",
-            copy: "Você procura uma atmosfera que reduza o ruído do dia e devolva intimidade ao espaço. Perfumes macios, envolventes e próximos tendem a fazer sentido para você.",
-            product: "Cumaru & Sândalo",
-            notes: "Madeiras quentes · cremosidade · presença serena",
-            link: "produto-cumaru-sandalo.html",
-          },
-          presenca: {
-            title: "Presença",
-            copy: "Você gosta quando a casa tem assinatura. Procura fragrâncias com personalidade, profundidade e uma memória que permaneça depois do primeiro instante.",
-            product: "Cumaru & Sândalo",
-            notes: "Cumaru · sândalo · madeiras envolventes",
-            link: "produto-cumaru-sandalo.html",
-          },
-          leveza: {
-            title: "Leveza",
-            copy: "Você se aproxima de atmosferas luminosas, delicadas e arejadas. Prefere uma fragrância que acompanhe o ambiente com suavidade.",
-            product: "Árvore de Sakura & Musk",
-            notes: "Flores luminosas · frutas suaves · musk",
-            link: "produto-sakura-musk.html",
-          },
-          aconchego: {
-            title: "Aconchego",
-            copy: "Para você, o perfume da casa deve aproximar: trazer calor, conforto e a sensação de que o tempo pode desacelerar um pouco.",
-            product: "Cumaru & Sândalo",
-            notes: "Madeiras macias · calor · conforto",
-            link: "produto-cumaru-sandalo.html",
-          },
-        };
         function show(n) {
           step = n;
           steps.forEach((s) =>
@@ -431,14 +402,7 @@
         }
         function finish() {
           steps.forEach((s) => s.classList.remove("active"));
-          const count = { refugio: 0, presenca: 0, leveza: 0, aconchego: 0 };
-          answers.forEach((v) => count[v]++);
-          const priority = ["refugio", "presenca", "leveza", "aconchego"];
-          let winner = priority[0];
-          priority.forEach((k) => {
-            if (count[k] > count[winner]) winner = k;
-          });
-          const c = configs[winner];
+          const c = window.AMEVURI_QUIZ.resolve(answers);
           document.getElementById("resultTitle").textContent = c.title;
           document.getElementById("resultCopy").textContent = c.copy;
           document.getElementById("resultProduct").textContent = c.product;
@@ -467,7 +431,7 @@
           }
           const back = e.target.closest("[data-back]");
           if (back) {
-            answers.splice(step - 1, 1);
+            answers = answers.slice(0, Math.max(0, step - 2));
             show(Math.max(1, step - 1));
             return;
           }

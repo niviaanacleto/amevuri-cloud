@@ -4767,3 +4767,14 @@ img.img-failed {
 
 .policy-content{max-width:1000px;margin:auto;padding-top:0}.policy-content section{margin-bottom:42px}.policy-content h2{font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:18px}.policy-content p{line-height:1.85;margin-bottom:16px}.policy-content a,.checkout-copy a{text-decoration:underline;text-underline-offset:3px}.policy-hero{padding-top:170px!important}
 .commerce-shop-grid .shop-card.hidden{display:none}
+
+/* Três coleções, com fotografias inteiras e ações legíveis. */
+.collection-preview .editorial-products{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.collection-preview .product-card{min-width:0;min-height:0;display:flex;flex-direction:column}
+.collection-preview .product-photo-card,.collection-preview .product-photo-card>img{height:auto;min-height:0;aspect-ratio:auto}
+.collection-preview .product-photo-card>img{object-fit:contain;transform:none}
+.collection-preview .product-copy{flex:1;display:flex;flex-direction:column}
+.collection-preview .product-actions{margin-top:auto;display:flex;flex-wrap:wrap;gap:16px;padding-top:20px}
+.collection-preview .product-rosa{background:#f4e8e9;color:#702936}
+@media(max-width:1000px){.collection-preview .editorial-products{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.collection-preview .editorial-products{grid-template-columns:1fr}}
