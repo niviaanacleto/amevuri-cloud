@@ -174,28 +174,28 @@ if (quiz) {
       copy: "Você procura uma atmosfera que reduza o ruído do dia e devolva intimidade ao espaço. Perfumes macios, envolventes e próximos tendem a fazer sentido para você.",
       product: "Cumaru & Sândalo",
       notes: "Madeiras quentes · cremosidade · presença serena",
-      link: "/produto-cumaru-sandalo",
+      link: "/produto-cumaru",
     },
     presenca: {
       title: "Presença",
       copy: "Você gosta quando a casa tem assinatura. Procura fragrâncias com personalidade, profundidade e uma memória que permaneça depois do primeiro instante.",
       product: "Cumaru & Sândalo",
       notes: "Cumaru · sândalo · madeiras envolventes",
-      link: "/produto-cumaru-sandalo",
+      link: "/produto-cumaru",
     },
     leveza: {
       title: "Leveza",
       copy: "Você se aproxima de atmosferas luminosas, delicadas e arejadas. Prefere uma fragrância que acompanhe o ambiente com suavidade.",
       product: "Árvore de Sakura & Musk",
       notes: "Flores luminosas · frutas suaves · musk",
-      link: "/produto-sakura-musk",
+      link: "/produto-sakura",
     },
     aconchego: {
       title: "Aconchego",
       copy: "Para você, o perfume da casa deve aproximar: trazer calor, conforto e a sensação de que o tempo pode desacelerar um pouco.",
       product: "Cumaru & Sândalo",
       notes: "Madeiras macias · calor · conforto",
-      link: "/produto-cumaru-sandalo",
+      link: "/produto-cumaru",
     },
   };
   function showStep(n) {

@@ -7,6 +7,14 @@
       currency: "BRL",
     }).format(Number(n) || 0);
   const PRODUCTS = {
+"difusor-cumaru-100": {"id": "difusor-cumaru-100", "name": "Difusor de Varetas", "fragrance": "Cumaru & Sândalo", "size": "100 ml", "price": 49.99},
+"difusor-sakura-100": {"id": "difusor-sakura-100", "name": "Difusor de Varetas", "fragrance": "Árvore de Sakura & Musk", "size": "100 ml", "price": 49.99},
+"vela-rosa-130": {"id": "vela-rosa-130", "name": "Vela Aromática", "fragrance": "Rosa Búlgara & Açafrão", "size": "130g", "price": 69.99},
+"home-rosa-250": {"id": "home-rosa-250", "name": "Home Parfum", "fragrance": "Rosa Búlgara & Açafrão", "size": "250 ml", "price": 39.99},
+"wax-rosa-80": {"id": "wax-rosa-80", "name": "Wax Melts", "fragrance": "Rosa Búlgara & Açafrão", "size": "80g", "price": 39.99},
+"mini-rosa-20": {"id": "mini-rosa-20", "name": "Miniatura de Vela", "fragrance": "Rosa Búlgara & Açafrão", "size": "20g", "price": 8.99},
+"difusor-rosa-100": {"id": "difusor-rosa-100", "name": "Difusor de Varetas", "fragrance": "Rosa Búlgara & Açafrão", "size": "100 ml", "price": 49.99},
+
 "mini-cumaru-20": {"id": "mini-cumaru-20", "name": "Miniatura de vela aromática", "size": "20g", "fragrance": "Cumaru & Sândalo", "price": 8.99},
 "mini-sakura-20": {"id": "mini-sakura-20", "name": "Miniatura de vela aromática", "size": "20g", "fragrance": "Árvore de Sakura & Musk", "price": 8.99},
 
@@ -285,7 +293,7 @@
       photo.src = p.id.startsWith("mini-") ? `/assets/miniaturas/${scent}-20g.png` :
         format === "home"
           ? scent === "cumaru"
-            ? "/assets/cumaru/cumaru-home-parfum.webp"
+            ? "/assets/catalog-v2/cumaru-home-parfum.png"
             : "/assets/catalog-v2/sakura-home-parfum.webp"
           : `/assets/catalog-v2/${scent}-${format}.webp`;
       photo.alt = `${p.name} ${p.size} ${p.fragrance} AMEVURI`;

@@ -8,7 +8,7 @@
     "inventory": "node scripts/inventory.mjs",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "test": "node --experimental-vm-modules scripts/test.mjs"
+    "test": "node --experimental-vm-modules scripts/test.mjs && node --experimental-vm-modules scripts/test-collections.mjs"
   },
   "devDependencies": {
     "wrangler": "4.86.0"

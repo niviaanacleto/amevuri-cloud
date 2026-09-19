@@ -156,11 +156,11 @@ test("Pesos oficiais e identificadores compatíveis", async () => {
     r.data.products
       .filter((p) => p.format === "Vela aromática")
       .map((p) => p.size),
-    ["130g", "130g"],
+    ["130g", "130g", "130g"],
   );
   assert.deepEqual(
     r.data.products.filter((p) => p.format === "Wax Melts").map((p) => p.size),
-    ["80g", "80g"],
+    ["80g", "80g", "80g"],
   );
 });
 test("Frete envia seguro unitário e não revela origem", async () => {

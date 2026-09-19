@@ -1,4 +1,12 @@
 export const CATALOG = Object.freeze({
+"difusor-cumaru-100": {"id": "difusor-cumaru-100", "name": "Difusor de Varetas", "fragrance": "Cumaru & Sândalo", "format": "Difusor de Varetas", "size": "100 ml", "price": 49.99, "initialStock": 10, "shipping": {"weightKg": 0.3, "widthCm": 6, "heightCm": 10, "lengthCm": 6}},
+"difusor-sakura-100": {"id": "difusor-sakura-100", "name": "Difusor de Varetas", "fragrance": "Árvore de Sakura & Musk", "format": "Difusor de Varetas", "size": "100 ml", "price": 49.99, "initialStock": 10, "shipping": {"weightKg": 0.3, "widthCm": 6, "heightCm": 10, "lengthCm": 6}},
+"vela-rosa-130": {"id": "vela-rosa-130", "name": "Vela Aromática", "fragrance": "Rosa Búlgara & Açafrão", "format": "Vela aromática", "size": "130g", "price": 69.99, "initialStock": 10, "shipping": {"weightKg": 0.33, "widthCm": 10, "heightCm": 10, "lengthCm": 10}},
+"home-rosa-250": {"id": "home-rosa-250", "name": "Home Parfum", "fragrance": "Rosa Búlgara & Açafrão", "format": "Home Parfum", "size": "250 ml", "price": 39.99, "initialStock": 10, "shipping": {"weightKg": 0.3, "widthCm": 8, "heightCm": 5, "lengthCm": 21.5}},
+"wax-rosa-80": {"id": "wax-rosa-80", "name": "Wax Melts", "fragrance": "Rosa Búlgara & Açafrão", "format": "Wax Melts", "size": "80g", "price": 39.99, "initialStock": 10, "shipping": {"weightKg": 0.1, "widthCm": 10, "heightCm": 5, "lengthCm": 10}},
+"mini-rosa-20": {"id": "mini-rosa-20", "name": "Miniatura de Vela", "fragrance": "Rosa Búlgara & Açafrão", "format": "Miniatura", "size": "20g", "price": 8.99, "initialStock": 10, "shipping": {"weightKg": 0.04, "widthCm": 6, "heightCm": 2, "lengthCm": 6}},
+"difusor-rosa-100": {"id": "difusor-rosa-100", "name": "Difusor de Varetas", "fragrance": "Rosa Búlgara & Açafrão", "format": "Difusor de Varetas", "size": "100 ml", "price": 49.99, "initialStock": 10, "shipping": {"weightKg": 0.3, "widthCm": 6, "heightCm": 10, "lengthCm": 6}},
+
 "mini-cumaru-20": {"id": "mini-cumaru-20", "name": "Miniatura de vela aromática", "fragrance": "Cumaru & Sândalo", "format": "Miniatura", "size": "20g", "price": 8.99, "initialStock": 10, "shipping": {"weightKg": 0.04, "widthCm": 6, "heightCm": 2, "lengthCm": 6}},
 "mini-sakura-20": {"id": "mini-sakura-20", "name": "Miniatura de vela aromática", "fragrance": "Árvore de Sakura & Musk", "format": "Miniatura", "size": "20g", "price": 8.99, "initialStock": 10, "shipping": {"weightKg": 0.04, "widthCm": 6, "heightCm": 2, "lengthCm": 6}},
 
