@@ -345,11 +345,6 @@ async function routeApi(req, env, ctx, path) {
       const body = await readBody(req);
       if (clean(body.company)) return json({ ok: true, registered: true });
       const token = namedCookieValue(req, AROMA_VOTE_COOKIE);
-      if (!/^[0-9a-f]{48}$/.test(token))
-        return json(
-          { ok: false, code: "AROMA_VOTE_REQUIRED", error: "Registre suas escolhas antes de pedir o aviso." },
-          409,
-        );
       const name = clean(body.name).replace(/\s+/g, " ").slice(0, 120);
       const email = lower(body.email);
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254)
@@ -359,10 +354,13 @@ async function routeApi(req, env, ctx, path) {
           { ok: false, error: "Confirme o aviso de lançamento e a Política de Privacidade." },
           400,
         );
-      const voterHash = await sha256(`aroma-voter:${token}`);
+      const voterHash = /^[0-9a-f]{48}$/.test(token)
+        ? await sha256(`aroma-voter:${token}`)
+        : null;
       const result = await store.saveAromaInterest(voterHash, {
         name,
         email,
+        source: clean(body.source).slice(0, 40) || "preview-page",
         privacyVersion: "2026-09-20",
       });
       return json(
