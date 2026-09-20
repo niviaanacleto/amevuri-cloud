@@ -50,6 +50,37 @@ function authorized(req, env) {
   );
 }
 const PRIVE_COOKIE = "amevuri_prive";
+const AROMA_VOTE_COOKIE = "amevuri_aroma_vote";
+const AROMA_VOTE_IDS = new Set([
+  "agulhas-pinho-menta",
+  "artemisia-cedro",
+  "bambu-jacinto",
+  "baunilha-lavanda",
+  "baunilha-cha-preto",
+  "cereja-ambar",
+  "coco-tonka-madeiras",
+  "figo-folhas",
+  "gengibre-patchouli",
+  "green-tea",
+  "limao-siciliano-hortela",
+  "neroli-cedro",
+  "orange-blossom",
+  "salvia-sandalo",
+  "verbena-capim-santo",
+  "iris-cedro",
+  "lavanda-sandalo",
+]);
+function namedCookieValue(req, name) {
+  const raw = req.headers.get("cookie") || "";
+  for (const part of raw.split(";")) {
+    const [cookieName, ...rest] = part.trim().split("=");
+    if (cookieName === name) return decodeURIComponent(rest.join("="));
+  }
+  return "";
+}
+const aromaVoteCookie = (token) =>
+  `${AROMA_VOTE_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=15552000`;
+
 async function sha256(value) {
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(String(value)));
   return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
@@ -264,10 +295,89 @@ async function routeApi(req, env, ctx, path) {
       return json({
         ok: true,
         service: "AMEVURI Cloudflare Worker",
-        release: "5.5.0",
+        release: "5.6.0",
         status: "online",
         routing: "static-assets-native",
       });
+    if (path === "/api/aroma-vote") {
+      if (req.method !== "POST")
+        return json({ ok: false, error: "Método não permitido." }, 405);
+      const body = await readBody(req);
+      if (clean(body.company)) return json({ ok: true, registered: true });
+      const choices = Array.isArray(body.choices)
+        ? [...new Set(body.choices.map((v) => clean(v)))]
+        : [];
+      if (
+        choices.length < 1 ||
+        choices.length > 3 ||
+        choices.some((id) => !AROMA_VOTE_IDS.has(id))
+      )
+        return json(
+          { ok: false, error: "Escolha entre 1 e 3 aromas válidos." },
+          400,
+        );
+      const ip = req.headers.get("cf-connecting-ip") || "unknown";
+      const ipHash = await sha256(`aroma-ip:${ip}`);
+      await store.guardAromaVote(ipHash);
+      let token = namedCookieValue(req, AROMA_VOTE_COOKIE);
+      let setCookie = false;
+      if (!/^[0-9a-f]{48}$/.test(token)) {
+        token = randomHex(24);
+        setCookie = true;
+      }
+      const voterHash = await sha256(`aroma-voter:${token}`);
+      const result = await store.recordAromaVote(voterHash, choices);
+      return json(
+        {
+          ok: true,
+          saved: true,
+          created: result.created,
+          updated: result.updated,
+          choices: result.vote.choices,
+        },
+        result.created ? 201 : 200,
+        setCookie ? { "set-cookie": aromaVoteCookie(token) } : {},
+      );
+    }
+    if (path === "/api/aroma-notify") {
+      if (req.method !== "POST")
+        return json({ ok: false, error: "Método não permitido." }, 405);
+      const body = await readBody(req);
+      if (clean(body.company)) return json({ ok: true, registered: true });
+      const token = namedCookieValue(req, AROMA_VOTE_COOKIE);
+      if (!/^[0-9a-f]{48}$/.test(token))
+        return json(
+          { ok: false, code: "AROMA_VOTE_REQUIRED", error: "Registre suas escolhas antes de pedir o aviso." },
+          409,
+        );
+      const name = clean(body.name).replace(/\s+/g, " ").slice(0, 120);
+      const email = lower(body.email);
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254)
+        return json({ ok: false, error: "Informe um email válido." }, 400);
+      if (body.marketingConsent !== true || body.acceptPrivacy !== true)
+        return json(
+          { ok: false, error: "Confirme o aviso de lançamento e a Política de Privacidade." },
+          400,
+        );
+      const voterHash = await sha256(`aroma-voter:${token}`);
+      const result = await store.saveAromaInterest(voterHash, {
+        name,
+        email,
+        privacyVersion: "2026-09-20",
+      });
+      return json(
+        { ok: true, registered: true, created: result.created },
+        result.created ? 201 : 200,
+      );
+    }
+    if (path === "/api/admin-aroma-votes") {
+      if (!authorized(req, env))
+        return json({ ok: false, error: "Não autorizado." }, 401);
+      if (req.method !== "GET")
+        return json({ ok: false, error: "Método não permitido." }, 405);
+      const dashboard = await store.aromaVoteDashboard();
+      return json({ ok: true, ...dashboard });
+    }
     if (path === "/api/inventory") {
       const stock = await store.getInventory();
       return json({
@@ -437,7 +547,7 @@ async function routeApi(req, env, ctx, path) {
       } catch {}
       return json({
         ok: true,
-        release: "5.5.0",
+        release: "5.6.0",
         platform: "Cloudflare Workers",
         routing: { cleanUrls: true, manualRedirects: false },
         shipping: {
@@ -989,6 +1099,8 @@ async function routeApi(req, env, ctx, path) {
     if (["OUT_OF_STOCK", "CHECKOUT_CONFLICT", "PRIVE_CREDIT_INVALID"].includes(e.code))
       return json({ ok: false, code: e.code, error: e.message }, 409);
     if (String(e.code || "").startsWith("PRIVE_"))
+      return json({ ok: false, code: e.code, error: e.message }, e.status || 400);
+    if (String(e.code || "").startsWith("AROMA_"))
       return json({ ok: false, code: e.code, error: e.message }, e.status || 400);
     if (
       String(e.code || "").startsWith("SHIPPING_") ||
