@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" href="/assets/favicon-amevuri-exact.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title>Resultados · Novos Aromas | AMEVURI</title>
+</head>
+<body class="aroma-admin-page">
+  <main class="section-pad aroma-admin">
+    <p class="eyebrow">AMEVURI · área administrativa</p>
+    <h1>Novos Aromas<br /><em>resultados.</em></h1>
+    <section class="aroma-admin-login" id="aroma-admin-login">
+      <h2>Acessar resultados</h2>
+      <p>Use a mesma chave de configuração administrativa do site. Ela não será armazenada no navegador.</p>
+      <form id="aroma-admin-form">
+        <label>Chave administrativa<input id="aroma-admin-key" type="password" autocomplete="off" required /></label>
+        <button class="btn btn-primary" type="submit">Abrir painel</button>
+        <p id="aroma-admin-message" role="status"></p>
+      </form>
+    </section>
+    <section class="aroma-admin-dashboard" id="aroma-admin-dashboard" hidden>
+      <div class="aroma-admin-summary">
+        <article><span>Participantes</span><strong id="aroma-total-voters">0</strong></article>
+        <article><span>Pedidos de aviso</span><strong id="aroma-total-contacts">0</strong></article>
+      </div>
+      <div class="aroma-admin-head">
+        <div><p class="eyebrow">Preferências</p><h2>Votos por aroma</h2></div>
+        <button class="btn btn-ghost" id="aroma-export" type="button">Exportar CSV</button>
+      </div>
+      <div class="aroma-admin-ranking" id="aroma-admin-ranking"></div>
+      <div class="aroma-admin-head aroma-admin-contacts-head">
+        <div><p class="eyebrow">Avisos de lançamento</p><h2>Contatos</h2></div>
+      </div>
+      <div class="aroma-admin-contacts" id="aroma-admin-contacts"></div>
+    </section>
+  </main>
+  <script>
+  (() => {
+    const names = {
+      "agulhas-pinho-menta":"Agulhas de Pinho & Menta","artemisia-cedro":"Artemísia & Cedro",
+      "bambu-jacinto":"Bambu Chinês & Jacinto","baunilha-lavanda":"Baunilha & Lavanda",
+      "baunilha-cha-preto":"Baunilha & Chá Preto","cereja-ambar":"Cereja & Âmbar",
+      "coco-tonka-madeiras":"Coco, Tonka & Madeiras","figo-folhas":"Figo & Folhas",
+      "gengibre-patchouli":"Gengibre & Patchouli","green-tea":"Green Tea",
+      "limao-siciliano-hortela":"Limão Siciliano & Hortelã","neroli-cedro":"Neroli & Cedro",
+      "orange-blossom":"Orange Blossom","salvia-sandalo":"Sálvia & Sândalo",
+      "verbena-capim-santo":"Verbena & Capim Santo","iris-cedro":"Íris & Cedro",
+      "lavanda-sandalo":"Lavanda & Sândalo"
+    };
+    let dashboard=null;
+    const form=document.getElementById("aroma-admin-form");
+    const msg=document.getElementById("aroma-admin-message");
+    form.addEventListener("submit",async(e)=>{
+      e.preventDefault();
+      msg.textContent="Carregando…";
+      const key=document.getElementById("aroma-admin-key").value;
+      try{
+        const res=await fetch("/api/admin-aroma-votes",{headers:{"x-amevuri-setup-key":key}});
+        const data=await res.json();
+        if(!res.ok||!data.ok) throw new Error(data.error||"Acesso não autorizado.");
+        dashboard=data;
+        document.getElementById("aroma-admin-login").hidden=true;
+        document.getElementById("aroma-admin-dashboard").hidden=false;
+        render(data);
+      }catch(err){msg.textContent=err.message||"Não foi possível abrir o painel.";}
+    });
+    function render(data){
+      document.getElementById("aroma-total-voters").textContent=data.totalVoters||0;
+      document.getElementById("aroma-total-contacts").textContent=(data.contacts||[]).length;
+      const entries=Object.keys(names).map(id=>({id,name:names[id],count:Number(data.counts?.[id]||0)})).sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name,"pt-BR"));
+      const max=Math.max(1,...entries.map(x=>x.count));
+      document.getElementById("aroma-admin-ranking").innerHTML=entries.map((x,i)=>`
+        <article><span>${String(i+1).padStart(2,"0")}</span><strong>${x.name}</strong>
+        <div><i style="width:${(x.count/max)*100}%"></i></div><b>${x.count}</b></article>`).join("");
+      const contacts=data.contacts||[];
+      document.getElementById("aroma-admin-contacts").innerHTML=contacts.length?contacts.map(c=>`
+        <article><div><strong>${escapeHtml(c.name||"Sem nome")}</strong><a href="mailto:${encodeURIComponent(c.email)}">${escapeHtml(c.email)}</a></div>
+        <p>${(c.choices||[]).map(id=>names[id]||id).join(" · ")}</p><time>${new Date(c.updatedAt||c.createdAt).toLocaleString("pt-BR")}</time></article>`).join("")
+        :"<p>Nenhum pedido de aviso registrado ainda.</p>";
+    }
+    function escapeHtml(v){const d=document.createElement("div");d.textContent=String(v||"");return d.innerHTML;}
+    document.getElementById("aroma-export").addEventListener("click",()=>{
+      if(!dashboard)return;
+      const rows=[["nome","email","aromas","atualizado_em"],...(dashboard.contacts||[]).map(c=>[
+        c.name||"",c.email||"",(c.choices||[]).map(id=>names[id]||id).join(" | "),c.updatedAt||c.createdAt||""
+      ])];
+      const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(",")).join("\r\n");
+      const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}));
+      a.download="amevuri-novos-aromas-contatos.csv";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
+    });
+  })();
+  </script>
+</body>
+</html>
