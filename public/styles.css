@@ -5152,3 +5152,10 @@ img.img-failed {
   .aroma-admin-ranking article>div{grid-column:2}
   .aroma-admin-contacts article{grid-template-columns:1fr}
 }
+
+.aroma-journal-invite{display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:end;background:#eee4d5;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.aroma-journal-invite h2{font-size:clamp(3.3rem,6vw,6.4rem);line-height:.9;margin:18px 0 0}
+.aroma-journal-invite>div:last-child{max-width:520px;justify-self:end}
+.aroma-journal-invite>div:last-child p{color:var(--muted);line-height:1.75}
+.aroma-journal-invite .btn{margin-top:22px}
+@media(max-width:800px){.aroma-journal-invite{grid-template-columns:1fr;gap:30px}.aroma-journal-invite>div:last-child{justify-self:start}}
