@@ -4841,79 +4841,17 @@ img.img-failed {
 }
 .atelier-section--reverse .atelier-number{grid-column:1}
 .atelier-section--reverse .atelier-copy{grid-column:3}
-.atelier-section--reverse .atelier-visual{grid-column:2;grid-row:1}
-.atelier-number{
-  font-family:var(--serif);
-  font-size:clamp(7rem,12vw,12rem);
-  line-height:.78;
-  color:rgba(182,138,67,.32);
-  letter-spacing:-.06em;
-  position:sticky;
-  top:120px;
-}
-.atelier-copy h2{
-  font-size:clamp(2.5rem,4.1vw,4.6rem);
-  line-height:.98;
-  margin:0 0 34px;
-}
-.atelier-copy p{font-size:1.02rem;color:#5f665f}
-.atelier-copy strong{color:var(--green)}
-.atelier-note{
-  margin:42px 0 0;
-  padding:28px 28px 30px;
-  border:1px solid rgba(182,138,67,.38);
-  background:rgba(255,255,255,.32);
-}
-.atelier-note span{
-  display:block;
-  font-size:.65rem;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-  color:var(--gold);
-  font-weight:600;
-  margin-bottom:12px;
-}
-.atelier-note p{
+.atelier-section--reverse .atelier-visual{
+  min-height:0;
   margin:0;
-  font-family:var(--serif);
-  font-size:1.25rem;
-  line-height:1.45;
-  color:var(--green);
+  overflow:visible;
+  background:none;
 }
-.atelier-visual{
-  min-height:620px;
-  position:relative;
-  overflow:hidden;
-  background-color:#173f33;
-  background-size:cover;
-  background-position:center;
-}
-.atelier-visual:after{
-  content:"";
-  position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 45%,rgba(8,29,23,.24));
-}
-.atelier-visual--wick{
-  background-image:url('/assets/products/sakura-vela-hero.webp');
-  background-size:190%;
-  background-position:52% 36%;
-}
-.atelier-visual--pool{
-  background-image:url('/assets/catalog-v2/cumaru-vela-horizontal.webp');
-  background-size:210%;
-  background-position:52% 47%;
-}
-.atelier-visual--memory{
-  background-image:url('/assets/catalog-v2/sakura-vela-horizontal.webp');
-  background-size:cover;
-}
-.atelier-visual--formula{
-  background-image:url('/assets/catalog-v2/cumaru-linha.webp');
-  background-size:cover;
-}
-.atelier-visual--architecture{
-  background-image:url('/assets/catalog-v2/cumaru-caixa.webp');
-  background-size:cover;
+.atelier-visual img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
 }
 .atelier-finale{
   max-width:900px;
@@ -4987,7 +4925,7 @@ img.img-failed {
   .atelier-section .atelier-number,.atelier-section--reverse .atelier-number{grid-column:1;grid-row:1/3}
   .atelier-section .atelier-copy,.atelier-section--reverse .atelier-copy{grid-column:2;grid-row:1}
   .atelier-section .atelier-visual,.atelier-section--reverse .atelier-visual{
-    grid-column:2;grid-row:2;min-height:440px;margin-top:26px;
+    grid-column:2;grid-row:2;min-height:0;margin-top:26px;
   }
 }
 @media (max-width:700px){
@@ -5006,7 +4944,7 @@ img.img-failed {
   }
   .atelier-section .atelier-copy,.atelier-section--reverse .atelier-copy{grid-column:1;grid-row:2}
   .atelier-section .atelier-visual,.atelier-section--reverse .atelier-visual{
-    grid-column:1;grid-row:3;min-height:380px;
+    grid-column:1;grid-row:3;min-height:0;
   }
   .atelier-note{padding:24px 22px}
   .atelier-chapter-nav{grid-template-columns:1fr}
