@@ -58,7 +58,10 @@
         <h1>Qual será a próxima<br /><em>atmosfera da sua casa?</em></h1>
         <p class="lead">Algumas criações já nasceram como promessas. Outras ainda estão sendo observadas no silêncio do atelier.</p>
         <p>Conheça os aromas que estamos estudando para a AMEVURI e escolha até <strong>3 favoritos</strong>. Sua participação ajuda a orientar quais caminhos merecem avançar primeiro.</p>
-        <a class="btn btn-primary" href="#aromas">Quero escolher meus favoritos</a>
+        <div class="aroma-preview-hero-actions">
+          <a class="btn btn-primary" href="#aromas">Quero escolher meus favoritos</a>
+          <a class="text-link" href="#acompanhar">Quero receber novidades →</a>
+        </div>
       </div>
       <aside class="aroma-preview-hero-note" aria-label="Como participar">
         <span>17</span>
@@ -80,6 +83,25 @@
         <article><span>03</span><h3>Participe</h3><p>Envie suas escolhas. Depois, se desejar, peça para ser avisado sobre lançamentos.</p></article>
       </div>
       <p class="aroma-preview-disclaimer">Aromas em estudo. A votação registra preferência entre participantes e não representa previsão de vendas nem garantia de lançamento.</p>
+    </section>
+
+    <section class="aroma-lead-capture section-pad" id="acompanhar" aria-labelledby="acompanhar-title">
+      <div class="aroma-lead-copy">
+        <p class="eyebrow">Quer acompanhar antes de escolher?</p>
+        <h2 id="acompanhar-title">Entre para a lista<br /><em>dos próximos lançamentos.</em></h2>
+        <p>Você pode deixar seu contato agora, mesmo sem votar. Quando houver novidades sobre os aromas em estudo, a AMEVURI poderá avisar você.</p>
+      </div>
+      <form class="aroma-lead-form" id="aroma-lead-form">
+        <div class="aroma-form-grid">
+          <label>Nome <span>opcional</span><input name="name" autocomplete="name" maxlength="120" /></label>
+          <label>E-mail<input name="email" type="email" autocomplete="email" required /></label>
+        </div>
+        <label class="aroma-consent"><input type="checkbox" name="marketingConsent" required /> Quero receber novidades e avisos de lançamento AMEVURI.</label>
+        <label class="aroma-consent"><input type="checkbox" name="acceptPrivacy" required /> Li e aceito a <a href="/politica-privacidade" target="_blank">Política de Privacidade</a>.</label>
+        <label class="aroma-honeypot" aria-hidden="true">Empresa<input name="company" tabindex="-1" autocomplete="off" /></label>
+        <button class="btn btn-primary" type="submit">Quero acompanhar</button>
+        <p class="aroma-form-message" id="aroma-lead-message" role="status"></p>
+      </form>
     </section>
 
     <section class="aroma-preview-gallery section-pad" id="aromas" aria-labelledby="aromas-title">
