@@ -5116,3 +5116,40 @@ img.img-failed {
   .aroma-form-grid{grid-template-columns:1fr}
   .aroma-skip-notify{margin:14px 0 0;display:block}
 }
+
+.aroma-admin-page{background:var(--paper)}
+.aroma-admin{max-width:1180px;margin:0 auto;padding-top:150px}
+.aroma-admin>h1{font-size:clamp(4.5rem,9vw,8rem);line-height:.82;margin:20px 0 50px}
+.aroma-admin-login{max-width:620px;border:1px solid var(--line);padding:42px;background:var(--ivory)}
+.aroma-admin-login h2{font-size:2.5rem}
+.aroma-admin-login p{color:var(--muted)}
+.aroma-admin-login form{display:grid;gap:22px}
+.aroma-admin-login label{display:grid;gap:8px;color:var(--green);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
+.aroma-admin-login input{padding:13px;border:1px solid var(--line);background:var(--paper)}
+.aroma-admin-summary{display:grid;grid-template-columns:1fr 1fr;margin:20px 0 70px}
+.aroma-admin-summary article{border:1px solid var(--line);padding:32px;min-height:180px;display:flex;flex-direction:column;justify-content:space-between}
+.aroma-admin-summary article+article{border-left:0}
+.aroma-admin-summary span{text-transform:uppercase;letter-spacing:.12em;font-size:.65rem;color:var(--gold)}
+.aroma-admin-summary strong{font:500 5rem/1 var(--serif);color:var(--green)}
+.aroma-admin-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin:50px 0 24px}
+.aroma-admin-head h2{font-size:3.4rem;margin:0}
+.aroma-admin-ranking{border-top:1px solid var(--line)}
+.aroma-admin-ranking article{display:grid;grid-template-columns:42px minmax(220px,1fr) minmax(180px,2fr) 48px;gap:20px;align-items:center;padding:17px 0;border-bottom:1px solid var(--line)}
+.aroma-admin-ranking article>span{color:var(--gold);font-size:.7rem}
+.aroma-admin-ranking article>strong{font-family:var(--serif);font-size:1.35rem;color:var(--green)}
+.aroma-admin-ranking article>div{height:5px;background:rgba(15,59,47,.08)}
+.aroma-admin-ranking article i{height:100%;display:block;background:var(--gold)}
+.aroma-admin-ranking article>b{text-align:right}
+.aroma-admin-contacts{border-top:1px solid var(--line)}
+.aroma-admin-contacts article{display:grid;grid-template-columns:1fr 1.4fr auto;gap:28px;padding:20px 0;border-bottom:1px solid var(--line);align-items:start}
+.aroma-admin-contacts article div{display:grid;gap:4px}
+.aroma-admin-contacts a{color:var(--green);text-decoration:underline;text-underline-offset:3px}
+.aroma-admin-contacts p,.aroma-admin-contacts time{margin:0;color:var(--muted);font-size:.78rem}
+@media(max-width:700px){
+  .aroma-admin-summary{grid-template-columns:1fr}
+  .aroma-admin-summary article+article{border-left:1px solid var(--line);border-top:0}
+  .aroma-admin-head{align-items:start;flex-direction:column}
+  .aroma-admin-ranking article{grid-template-columns:30px 1fr 36px}
+  .aroma-admin-ranking article>div{grid-column:2}
+  .aroma-admin-contacts article{grid-template-columns:1fr}
+}
