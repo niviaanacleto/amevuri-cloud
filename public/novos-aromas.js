@@ -164,6 +164,45 @@
     if (event.target === voteDialog) voteDialog.close();
   });
 
+
+  async function submitLead(form, message, source) {
+    const data = new FormData(form);
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    message.textContent = "Registrando…";
+    try {
+      const response = await fetch("/api/aroma-notify", {
+        method:"POST",
+        headers:{"content-type":"application/json"},
+        body:JSON.stringify({
+          name:String(data.get("name") || ""),
+          email:String(data.get("email") || ""),
+          marketingConsent:data.get("marketingConsent") === "on",
+          acceptPrivacy:data.get("acceptPrivacy") === "on",
+          company:String(data.get("company") || ""),
+          source
+        })
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || "Não foi possível registrar.");
+      form.reset();
+      message.textContent = "Cadastro confirmado. Você está na lista de novidades AMEVURI.";
+    } catch (error) {
+      message.textContent = error.message || "Tente novamente em instantes.";
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  const leadForm = document.getElementById("aroma-lead-form");
+  const leadMessage = document.getElementById("aroma-lead-message");
+  if (leadForm) {
+    leadForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      submitLead(leadForm, leadMessage, "preview-page");
+    });
+  }
+
   const notifyForm = document.getElementById("aroma-notify-form");
   const message = document.getElementById("aroma-form-message");
   notifyForm.addEventListener("submit", async (event) => {
@@ -181,7 +220,8 @@
           email:String(form.get("email") || ""),
           marketingConsent:form.get("marketingConsent") === "on",
           acceptPrivacy:form.get("acceptPrivacy") === "on",
-          company:String(form.get("company") || "")
+          company:String(form.get("company") || ""),
+          source:"post-vote"
         })
       });
       const data = await response.json();
