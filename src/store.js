@@ -545,7 +545,7 @@ export class AmevuriStore extends DurableObject {
       const rate = (await t.get(key)) || { count: 0, start: current };
       if (current - rate.start > 60 * 60 * 1000)
         Object.assign(rate, { count: 0, start: current });
-      if (rate.count >= 20)
+      if (rate.count >= 10)
         throw Object.assign(new Error("Aguarde antes de enviar uma nova escolha."), {
           code: "AROMA_RATE_LIMIT",
           status: 429,
@@ -560,6 +560,8 @@ export class AmevuriStore extends DurableObject {
       const key = `aroma-voter:${voterHash}`;
       const previous = await t.get(key);
       const counts = { ...((await t.get("aroma-results")) || {}) };
+      let totalVoters = Number((await t.get("aroma-total-voters")) || 0);
+      if (!previous) totalVoters++;
       for (const id of previous?.choices || [])
         counts[id] = Math.max(0, Number(counts[id] || 0) - 1);
       for (const id of choices)
@@ -572,6 +574,7 @@ export class AmevuriStore extends DurableObject {
       };
       await t.put(key, vote);
       await t.put("aroma-results", counts);
+      await t.put("aroma-total-voters", totalVoters);
       return { created: !previous, updated: Boolean(previous), vote };
     });
   }
@@ -602,11 +605,11 @@ export class AmevuriStore extends DurableObject {
   }
   async aromaVoteDashboard() {
     const counts = { ...((await this.ctx.storage.get("aroma-results")) || {}) };
-    const voters = await this.ctx.storage.list({ prefix: "aroma-voter:" });
+    const totalVoters = Number((await this.ctx.storage.get("aroma-total-voters")) || 0);
     const interests = await this.ctx.storage.list({ prefix: "aroma-interest:" });
     return {
       counts,
-      totalVoters: voters.size,
+      totalVoters,
       contacts: [...interests.values()].sort((a, b) =>
         String(b.updatedAt || b.createdAt).localeCompare(String(a.updatedAt || a.createdAt)),
       ),
