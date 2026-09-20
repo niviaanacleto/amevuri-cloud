@@ -538,6 +538,80 @@ export class AmevuriStore extends DurableObject {
     for (const member of members.values()) await this.expirePrivePoints(member.id);
     return members.size;
   }
+  async guardAromaVote(ipHash) {
+    return this.ctx.storage.transaction(async (t) => {
+      const key = `aroma-rate:${ipHash}`;
+      const current = Date.now();
+      const rate = (await t.get(key)) || { count: 0, start: current };
+      if (current - rate.start > 60 * 60 * 1000)
+        Object.assign(rate, { count: 0, start: current });
+      if (rate.count >= 20)
+        throw Object.assign(new Error("Aguarde antes de enviar uma nova escolha."), {
+          code: "AROMA_RATE_LIMIT",
+          status: 429,
+        });
+      rate.count++;
+      await t.put(key, rate);
+      return true;
+    });
+  }
+  async recordAromaVote(voterHash, choices) {
+    return this.ctx.storage.transaction(async (t) => {
+      const key = `aroma-voter:${voterHash}`;
+      const previous = await t.get(key);
+      const counts = { ...((await t.get("aroma-results")) || {}) };
+      for (const id of previous?.choices || [])
+        counts[id] = Math.max(0, Number(counts[id] || 0) - 1);
+      for (const id of choices)
+        counts[id] = Number(counts[id] || 0) + 1;
+      const vote = {
+        id: previous?.id || crypto.randomUUID(),
+        choices: [...choices],
+        createdAt: previous?.createdAt || now(),
+        updatedAt: now(),
+      };
+      await t.put(key, vote);
+      await t.put("aroma-results", counts);
+      return { created: !previous, updated: Boolean(previous), vote };
+    });
+  }
+  async saveAromaInterest(voterHash, profile) {
+    return this.ctx.storage.transaction(async (t) => {
+      const vote = await t.get(`aroma-voter:${voterHash}`);
+      if (!vote)
+        throw Object.assign(new Error("Registre suas escolhas antes de pedir o aviso."), {
+          code: "AROMA_VOTE_REQUIRED",
+          status: 409,
+        });
+      const email = String(profile.email || "").trim().toLowerCase();
+      const key = `aroma-interest:${email}`;
+      const previous = await t.get(key);
+      const interest = {
+        id: previous?.id || crypto.randomUUID(),
+        name: profile.name || "",
+        email,
+        choices: [...vote.choices],
+        marketingConsent: true,
+        privacyVersion: profile.privacyVersion || "2026-09-20",
+        createdAt: previous?.createdAt || now(),
+        updatedAt: now(),
+      };
+      await t.put(key, interest);
+      return { created: !previous, interest };
+    });
+  }
+  async aromaVoteDashboard() {
+    const counts = { ...((await this.ctx.storage.get("aroma-results")) || {}) };
+    const voters = await this.ctx.storage.list({ prefix: "aroma-voter:" });
+    const interests = await this.ctx.storage.list({ prefix: "aroma-interest:" });
+    return {
+      counts,
+      totalVoters: voters.size,
+      contacts: [...interests.values()].sort((a, b) =>
+        String(b.updatedAt || b.createdAt).localeCompare(String(a.updatedAt || a.createdAt)),
+      ),
+    };
+  }
   async listOrders() {
     return [...(await this.ctx.storage.list({ prefix: "order:" })).values()];
   }
