@@ -1100,6 +1100,8 @@ async function routeApi(req, env, ctx, path) {
       return json({ ok: false, code: e.code, error: e.message }, 409);
     if (String(e.code || "").startsWith("PRIVE_"))
       return json({ ok: false, code: e.code, error: e.message }, e.status || 400);
+    if (String(e.code || "").startsWith("AROMA_"))
+      return json({ ok: false, code: e.code, error: e.message }, e.status || 400);
     if (
       String(e.code || "").startsWith("SHIPPING_") ||
       e.code === "INVALID_POSTAL_CODE"
