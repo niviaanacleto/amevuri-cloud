@@ -5043,7 +5043,7 @@ img.img-failed {
 .aroma-preview-card{background:var(--paper);border:1px solid rgba(15,59,47,.12);display:flex;flex-direction:column;min-width:0;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
 .aroma-preview-card:hover{transform:translateY(-3px);border-color:rgba(182,138,67,.5);box-shadow:0 22px 45px rgba(42,35,25,.08)}
 .aroma-preview-card.is-selected{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
-.aroma-preview-map{aspect-ratio:4/7;width:100%;border:0;cursor:pointer;display:grid;place-items:end start;padding:24px;text-align:left;background-color:#e8ddca;background-image:linear-gradient(180deg,rgba(8,34,27,.02),rgba(8,34,27,.54));background-size:cover;background-position:center}
+.aroma-preview-map{aspect-ratio:4/7;width:100%;border:0;cursor:pointer;display:grid;place-items:end start;padding:24px;text-align:left;background-color:#e8ddca;background-image:linear-gradient(180deg,rgba(8,34,27,.02),rgba(8,34,27,.58)),url("/assets/preview/novos-aromas-mapas.webp");background-repeat:no-repeat,no-repeat;background-size:100% 100%,100% 1700%;background-position:center,center var(--aroma-sprite-y,0%)}
 .aroma-map-fallback{display:grid;gap:6px;color:white;text-shadow:0 1px 16px rgba(0,0,0,.35)}
 .aroma-map-fallback small{text-transform:uppercase;letter-spacing:.14em;font-size:.62rem}
 .aroma-map-fallback strong{font:500 clamp(1.8rem,3vw,2.7rem)/.92 var(--serif);max-width:90%}
