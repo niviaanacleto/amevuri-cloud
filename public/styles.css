@@ -5043,10 +5043,44 @@ img.img-failed {
 .aroma-preview-card{background:var(--paper);border:1px solid rgba(15,59,47,.12);display:flex;flex-direction:column;min-width:0;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
 .aroma-preview-card:hover{transform:translateY(-3px);border-color:rgba(182,138,67,.5);box-shadow:0 22px 45px rgba(42,35,25,.08)}
 .aroma-preview-card.is-selected{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
-.aroma-preview-map{aspect-ratio:4/7;width:100%;border:0;cursor:pointer;display:grid;place-items:end start;padding:24px;text-align:left;position:relative;overflow:hidden;background:radial-gradient(circle at 72% 25%,rgba(182,138,67,.32),transparent 24%),radial-gradient(circle at 24% 72%,rgba(15,59,47,.2),transparent 31%),linear-gradient(145deg,#eee3d1,#d9c9ad)}
-.aroma-preview-map:before,.aroma-preview-map:after{content:"";position:absolute;border-style:solid;opacity:.22}.aroma-preview-map:before{border-width:0 72px 124px;border-color:transparent transparent var(--green);right:-18px;top:48px;transform:rotate(8deg)}.aroma-preview-map:after{border-width:0 54px 94px;border-color:transparent transparent var(--gold);right:32px;top:132px;transform:rotate(-9deg)}.aroma-map-fallback{display:grid;gap:6px;color:var(--green);text-shadow:none;position:relative;z-index:1}
-.aroma-map-fallback small{text-transform:uppercase;letter-spacing:.14em;font-size:.62rem;color:#7b6541}
-.aroma-map-fallback strong{font:500 clamp(1.8rem,3vw,2.7rem)/.92 var(--serif);max-width:90%}
+.aroma-preview-map{
+  width:100%;
+  border:0;
+  cursor:pointer;
+  display:block;
+  padding:0;
+  position:relative;
+  overflow:hidden;
+  background:#f3eadc;
+}
+.aroma-smellmap{
+  display:block;
+  width:100%;
+  aspect-ratio:320/530;
+  background-image:url("/assets/preview/novos-aromas-smellmaps.webp");
+  background-repeat:no-repeat;
+  background-size:100% 1700%;
+  background-position:center var(--smellmap-y,0%);
+}
+.aroma-map-expand{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  padding:8px 10px;
+  background:rgba(15,59,47,.9);
+  color:#fff;
+  font:500 .58rem var(--sans);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity .2s ease,transform .2s ease;
+}
+.aroma-preview-map:hover .aroma-map-expand,
+.aroma-preview-map:focus-visible .aroma-map-expand{
+  opacity:1;
+  transform:none;
+}
 .aroma-preview-card-copy{padding:28px;display:flex;flex-direction:column;flex:1}
 .aroma-preview-card-copy>p{margin:0 0 8px;text-transform:uppercase;letter-spacing:.12em;font-size:.62rem;color:var(--gold)}
 .aroma-preview-card-copy h3{font-size:2.15rem;line-height:.95;margin:0 0 16px}
@@ -5068,7 +5102,8 @@ img.img-failed {
 .aroma-dialog::backdrop,.aroma-vote-dialog::backdrop{background:rgba(7,26,21,.72);backdrop-filter:blur(4px)}
 .aroma-dialog-close{position:absolute;right:18px;top:14px;z-index:2;width:42px;height:42px;border:1px solid rgba(15,59,47,.25);background:rgba(251,248,242,.92);color:var(--green);font-size:1.7rem;cursor:pointer}
 #aroma-dialog-content{display:grid;grid-template-columns:minmax(300px,.82fr) 1.18fr}
-.aroma-dialog-map{min-height:690px;aspect-ratio:auto;cursor:default}
+.aroma-dialog-map{padding:34px;background:#eee4d5;display:flex;align-items:center;justify-content:center;min-width:0}
+.aroma-smellmap--large{width:min(100%,420px);box-shadow:0 18px 55px rgba(36,29,20,.12)}
 .aroma-dialog-copy{padding:80px 64px;align-self:center}
 .aroma-dialog-copy h2{font-size:clamp(3.4rem,6vw,6rem);line-height:.9;margin:18px 0 28px}
 .aroma-dialog-copy>p:not(.eyebrow){color:var(--muted)}
@@ -5109,7 +5144,8 @@ img.img-failed {
   .aroma-selection-bar{grid-template-columns:1fr;gap:12px;bottom:10px;padding:16px}
   .aroma-selection-bar .btn{width:100%}
   #aroma-dialog-content{grid-template-columns:1fr}
-  .aroma-dialog-map{min-height:0;aspect-ratio:4/7}
+  .aroma-dialog-map{padding:18px}
+  .aroma-smellmap--large{width:min(100%,360px)}
   .aroma-dialog-copy{padding:38px 24px 44px}
   .aroma-vote-dialog{padding:58px 24px 34px}
   .aroma-form-grid{grid-template-columns:1fr}
