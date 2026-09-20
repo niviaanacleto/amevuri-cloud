@@ -48,7 +48,9 @@
     return `
       <article class="aroma-preview-card ${checked ? "is-selected" : ""}" data-groups="${scent.groups.join(" ")}" data-id="${scent.id}">
         <button class="aroma-preview-map" type="button" data-explore="${scent.id}" aria-label="Ampliar mapa olfativo de ${scent.name}">
-          <span class="aroma-smellmap" style="--smellmap-y:${(scent.sprite / 16) * 100}%;" aria-hidden="true"></span>
+          <span class="aroma-smellmap-frame" aria-hidden="true">
+            <img class="aroma-smellmap-sprite" src="/assets/preview/novos-aromas-smellmaps.webp?v=2" alt="" loading="lazy" decoding="async" style="--sprite-index:${scent.sprite};" />
+          </span>
           <span class="aroma-map-expand">Ampliar mapa olfativo ↗</span>
         </button>
         <div class="aroma-preview-card-copy">
@@ -112,7 +114,9 @@
     if (!scent) return;
     detailContent.innerHTML = `
       <div class="aroma-dialog-map">
-        <div class="aroma-smellmap aroma-smellmap--large" style="--smellmap-y:${(scent.sprite / 16) * 100}%;" role="img" aria-label="Mapa olfativo de ${scent.name}"></div>
+        <span class="aroma-smellmap-frame aroma-smellmap-frame--large">
+          <img class="aroma-smellmap-sprite" src="/assets/preview/novos-aromas-smellmaps.webp?v=2" alt="Mapa olfativo de ${scent.name}" decoding="async" style="--sprite-index:${scent.sprite};" />
+        </span>
       </div>
       <div class="aroma-dialog-copy">
         <p class="eyebrow">Aroma em estudo · ${scent.family}</p>
