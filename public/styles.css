@@ -5053,14 +5053,22 @@ img.img-failed {
   overflow:hidden;
   background:#f3eadc;
 }
-.aroma-smellmap{
+.aroma-smellmap-frame{
   display:block;
+  position:relative;
   width:100%;
   aspect-ratio:320/530;
-  background-image:url("/assets/preview/novos-aromas-smellmaps.webp");
-  background-repeat:no-repeat;
-  background-size:100% 1700%;
-  background-position:center var(--smellmap-y,0%);
+  overflow:hidden;
+  background:#f4eadb;
+}
+.aroma-smellmap-sprite{
+  display:block;
+  position:absolute;
+  left:0;
+  top:calc(var(--sprite-index,0) * -100%);
+  width:100%;
+  height:auto;
+  max-width:none;
 }
 .aroma-map-expand{
   position:absolute;
@@ -5103,7 +5111,7 @@ img.img-failed {
 .aroma-dialog-close{position:absolute;right:18px;top:14px;z-index:2;width:42px;height:42px;border:1px solid rgba(15,59,47,.25);background:rgba(251,248,242,.92);color:var(--green);font-size:1.7rem;cursor:pointer}
 #aroma-dialog-content{display:grid;grid-template-columns:minmax(300px,.82fr) 1.18fr}
 .aroma-dialog-map{padding:34px;background:#eee4d5;display:flex;align-items:center;justify-content:center;min-width:0}
-.aroma-smellmap--large{width:min(100%,420px);box-shadow:0 18px 55px rgba(36,29,20,.12)}
+.aroma-smellmap-frame--large{width:min(100%,420px);box-shadow:0 18px 55px rgba(36,29,20,.12)}
 .aroma-dialog-copy{padding:80px 64px;align-self:center}
 .aroma-dialog-copy h2{font-size:clamp(3.4rem,6vw,6rem);line-height:.9;margin:18px 0 28px}
 .aroma-dialog-copy>p:not(.eyebrow){color:var(--muted)}
@@ -5145,7 +5153,7 @@ img.img-failed {
   .aroma-selection-bar .btn{width:100%}
   #aroma-dialog-content{grid-template-columns:1fr}
   .aroma-dialog-map{padding:18px}
-  .aroma-smellmap--large{width:min(100%,360px)}
+  .aroma-smellmap-frame--large{width:min(100%,360px)}
   .aroma-dialog-copy{padding:38px 24px 44px}
   .aroma-vote-dialog{padding:58px 24px 34px}
   .aroma-form-grid{grid-template-columns:1fr}
@@ -5260,24 +5268,30 @@ img.img-failed {
   position:absolute;
   width:42%;
   aspect-ratio:320/530;
-  background-image:url("/assets/preview/novos-aromas-smellmaps.webp");
-  background-repeat:no-repeat;
-  background-size:100% 1700%;
   box-shadow:0 20px 45px rgba(0,0,0,.25);
   border:1px solid rgba(255,255,255,.25);
+  overflow:hidden;
+  background:#f4eadb;
 }
-.home-smellmap-card--1{
-  left:7%;top:7%;transform:rotate(-8deg);
-  background-position:center 0%;
+.home-smellmap-frame{
+  display:block;
+  position:relative;
+  width:100%;
+  height:100%;
+  overflow:hidden;
 }
-.home-smellmap-card--2{
-  left:31%;top:1%;transform:rotate(2deg);z-index:2;
-  background-position:center 43.75%;
+.home-smellmap-sprite{
+  display:block;
+  position:absolute;
+  left:0;
+  top:calc(var(--sprite-index,0) * -100%);
+  width:100%;
+  height:auto;
+  max-width:none;
 }
-.home-smellmap-card--3{
-  right:4%;top:10%;transform:rotate(9deg);
-  background-position:center 81.25%;
-}
+.home-smellmap-card--1{left:7%;top:7%;transform:rotate(-8deg)}
+.home-smellmap-card--2{left:31%;top:1%;transform:rotate(2deg);z-index:2}
+.home-smellmap-card--3{right:4%;top:10%;transform:rotate(9deg)}
 @media(max-width:900px){
   .home-new-aromas{grid-template-columns:1fr;gap:44px}
   .home-new-aromas-art{min-height:500px}
