@@ -580,12 +580,7 @@ export class AmevuriStore extends DurableObject {
   }
   async saveAromaInterest(voterHash, profile) {
     return this.ctx.storage.transaction(async (t) => {
-      const vote = await t.get(`aroma-voter:${voterHash}`);
-      if (!vote)
-        throw Object.assign(new Error("Registre suas escolhas antes de pedir o aviso."), {
-          code: "AROMA_VOTE_REQUIRED",
-          status: 409,
-        });
+      const vote = voterHash ? await t.get(`aroma-voter:${voterHash}`) : null;
       const email = String(profile.email || "").trim().toLowerCase();
       const key = `aroma-interest:${email}`;
       const previous = await t.get(key);
@@ -593,7 +588,8 @@ export class AmevuriStore extends DurableObject {
         id: previous?.id || crypto.randomUUID(),
         name: profile.name || "",
         email,
-        choices: [...vote.choices],
+        choices: [...(vote?.choices || previous?.choices || [])],
+        source: profile.source || previous?.source || (vote ? "post-vote" : "preview-page"),
         marketingConsent: true,
         privacyVersion: profile.privacyVersion || "2026-09-20",
         createdAt: previous?.createdAt || now(),
