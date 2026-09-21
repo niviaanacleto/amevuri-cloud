@@ -5249,11 +5249,20 @@ img.img-failed {
   flex-direction:column;
   justify-content:flex-end;
   overflow:hidden;
+  isolation:isolate;
+}
+.home-new-aromas-art::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.035),transparent 52%);
+  pointer-events:none;
+  z-index:0;
 }
 .home-new-aromas-art strong{
   font:500 clamp(2rem,4vw,3.5rem)/.95 var(--serif);
   position:relative;
-  z-index:2;
+  z-index:10;
 }
 .home-new-aromas-art>span{
   margin-top:9px;
@@ -5262,40 +5271,45 @@ img.img-failed {
   font-size:.62rem;
   color:var(--gold-soft);
   position:relative;
-  z-index:2;
+  z-index:10;
 }
 .home-smellmap-stack{
   position:absolute;
   inset:34px 34px 116px;
+  z-index:2;
 }
 .home-smellmap-card{
   position:absolute;
   width:42%;
   aspect-ratio:320/530;
-  box-shadow:0 20px 45px rgba(0,0,0,.25);
-  border:1px solid rgba(255,255,255,.25);
   overflow:hidden;
   background:#f4eadb;
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:0 20px 45px rgba(0,0,0,.25);
+  transition:transform .6s cubic-bezier(.2,.7,.2,1),box-shadow .6s ease,opacity .35s ease;
+  will-change:transform;
 }
-.home-smellmap-frame{
+.home-smellmap-image{
   display:block;
-  position:relative;
   width:100%;
   height:100%;
-  overflow:hidden;
+  object-fit:contain;
+  object-position:center;
+  background:#f4eadb;
+  opacity:1;
+  transition:opacity .35s ease,transform .8s cubic-bezier(.2,.7,.2,1);
 }
-.home-smellmap-sprite{
-  display:block;
-  position:absolute;
-  left:0;
-  top:calc(var(--sprite-index,0) * -100%);
-  width:100%;
-  height:auto;
-  max-width:none;
-}
+.home-smellmap-card.is-changing .home-smellmap-image{opacity:0}
 .home-smellmap-card--1{left:7%;top:7%;transform:rotate(-8deg)}
-.home-smellmap-card--2{left:31%;top:1%;transform:rotate(2deg);z-index:2}
-.home-smellmap-card--3{right:4%;top:10%;transform:rotate(9deg)}
+.home-smellmap-card--2{left:31%;top:1%;transform:rotate(2deg);z-index:3}
+.home-smellmap-card--3{right:4%;top:10%;transform:rotate(9deg);z-index:2}
+@media(hover:hover) and (pointer:fine){
+  .home-new-aromas-art:hover .home-smellmap-card--1{transform:translate(-5px,-4px) rotate(-10deg)}
+  .home-new-aromas-art:hover .home-smellmap-card--2{transform:translateY(-8px) rotate(1deg)}
+  .home-new-aromas-art:hover .home-smellmap-card--3{transform:translate(5px,-3px) rotate(11deg)}
+  .home-new-aromas-art:hover .home-smellmap-card{box-shadow:0 28px 60px rgba(0,0,0,.32)}
+  .home-new-aromas-art:hover .home-smellmap-image{transform:scale(1.015)}
+}
 @media(max-width:900px){
   .home-new-aromas{grid-template-columns:1fr;gap:44px}
   .home-new-aromas-art{min-height:500px}
@@ -5304,9 +5318,16 @@ img.img-failed {
   .home-new-aromas-art{min-height:430px;padding:24px}
   .home-smellmap-stack{inset:24px 18px 104px}
   .home-smellmap-card{width:48%}
-  .home-smellmap-card--1{left:0}
-  .home-smellmap-card--2{left:26%}
-  .home-smellmap-card--3{right:0}
+  .home-smellmap-card--1{left:0;top:8%}
+  .home-smellmap-card--2{left:26%;top:0}
+  .home-smellmap-card--3{right:0;top:10%}
+}
+@media(max-width:390px){
+  .home-new-aromas-art{min-height:400px}
+  .home-smellmap-card{width:47%}
+}
+@media(prefers-reduced-motion:reduce){
+  .home-smellmap-card,.home-smellmap-image{transition:none}
 }
 
 .aroma-preview-hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin-top:28px}
