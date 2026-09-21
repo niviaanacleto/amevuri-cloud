@@ -1,22 +1,141 @@
 (() => {
   const SCENTS = [
-    {id:"agulhas-pinho-menta",sprite:0,name:"Agulhas de Pinho & Menta",family:"Fougère amadeirado",groups:["frescos","amadeirados"],desc:"Fresco, verde e energizante. Uma atmosfera limpa e revigorante, com sensação de respiração aberta.",notes:"Agulhas de pinho · menta · limão · cedro"},
-    {id:"artemisia-cedro",sprite:1,name:"Artemísia & Cedro",family:"Cítrico aromático",groups:["frescos","amadeirados"],desc:"Herbal, aromático e seco. Uma composição botânica serena, com elegância natural e fundo de madeira.",notes:"Artemísia · chá verde · lima · cedro"},
-    {id:"bambu-jacinto",sprite:2,name:"Bambu Chinês & Jacinto",family:"Floral musk",groups:["frescos","florais"],desc:"Leve, verde e delicado. Um floral arejado, limpo e acolhedor, com transparência contemporânea.",notes:"Bambu verde · jacinto · jasmim · musk"},
-    {id:"baunilha-lavanda",sprite:3,name:"Baunilha & Lavanda",family:"Oriental amadeirado",groups:["florais","envolventes"],desc:"Cremoso e reconfortante. A serenidade da lavanda encontra a maciez da baunilha em uma leitura sofisticada.",notes:"Lavanda · baunilha · sândalo · fava tonka"},
-    {id:"baunilha-cha-preto",sprite:4,name:"Baunilha & Chá Preto",family:"Oriental cítrico",groups:["envolventes"],desc:"Profundo, quente e memorável. A doçura confortável da baunilha ganha contraste com a elegância seca do chá.",notes:"Chá preto · baunilha · especiarias · âmbar"},
-    {id:"cereja-ambar",sprite:5,name:"Cereja & Âmbar",family:"Floral frutal",groups:["florais","envolventes"],desc:"Frutado, sensual e envolvente. Cereja luminosa sobre uma base quente e sofisticada de âmbar.",notes:"Cereja · framboesa · orquídea · âmbar"},
-    {id:"coco-tonka-madeiras",sprite:6,name:"Coco, Tonka & Madeiras",family:"Oriental aromático",groups:["amadeirados","envolventes"],desc:"Cremoso, dourado e aconchegante. Uma composição indulgente equilibrada por madeiras secas e elegantes.",notes:"Coco · fava tonka · sândalo · âmbar"},
-    {id:"figo-folhas",sprite:7,name:"Figo & Folhas",family:"Floral frutal",groups:["frescos","florais"],desc:"Verde, frutado e elegante. O frescor das folhas encontra a textura cremosa do figo em uma assinatura contemporânea.",notes:"Figo · folhas verdes · gardênia · cedro"},
-    {id:"gengibre-patchouli",sprite:8,name:"Gengibre & Patchouli",family:"Madeira cítrico",groups:["frescos","amadeirados"],desc:"Vibrante, terroso e moderno. Energia cítrica e especiada na abertura, profundidade amadeirada no fundo.",notes:"Gengibre · bergamota · patchouli · vetiver"},
-    {id:"green-tea",sprite:9,name:"Green Tea",family:"Floral cítrico",groups:["frescos","florais"],desc:"Limpo, leve e harmonioso. Chá verde e cítricos criam uma sensação luminosa de frescor contínuo.",notes:"Chá verde · bergamota · flor de laranjeira · madeiras"},
-    {id:"limao-siciliano-hortela",sprite:10,name:"Limão Siciliano & Hortelã",family:"Cítrico aromático",groups:["frescos"],desc:"Cítrico, refrescante e luminoso. Um encontro vivo entre limão e hortelã para ambientes que pedem leveza.",notes:"Limão siciliano · bergamota · hortelã · cedro"},
-    {id:"neroli-cedro",sprite:11,name:"Neroli & Cedro",family:"Cítrico aromático",groups:["frescos","florais","amadeirados"],desc:"Fresco, refinado e confortável. Flores brancas iluminadas por cítricos repousam sobre uma base suave de madeira.",notes:"Neroli · bergamota · flor de laranjeira · cedro"},
-    {id:"orange-blossom",sprite:12,name:"Orange Blossom",family:"Floral",groups:["florais"],desc:"Solar, floral e elegante. Flor de laranjeira com brilho frutado e uma assinatura delicada, mas presente.",notes:"Flor de laranjeira · mandarina · jasmim · madeiras"},
-    {id:"salvia-sandalo",sprite:13,name:"Sálvia & Sândalo",family:"Fougère aromático",groups:["frescos","amadeirados"],desc:"Aromático, equilibrado e sereno. Notas verdes e herbais encontram a cremosidade discreta do sândalo.",notes:"Sálvia · lavanda · menta · sândalo"},
-    {id:"verbena-capim-santo",sprite:14,name:"Verbena & Capim Santo",family:"Cítrico aromático",groups:["frescos"],desc:"Fresco, cítrico e relaxante. Uma composição clara e vibrante, criada para trazer sensação de renovação.",notes:"Verbena · capim-santo · grapefruit · cedro"},
-    {id:"iris-cedro",sprite:15,name:"Íris & Cedro",family:"Floral fougère",groups:["florais","amadeirados"],desc:"Sofisticado, aveludado e envolvente. Um floral nobre ganha estrutura seca de madeira e profundidade elegante.",notes:"Íris · cereja preta · mirra · cedro"},
-    {id:"lavanda-sandalo",sprite:16,name:"Lavanda & Sândalo",family:"Floral oriental",groups:["florais","amadeirados","envolventes"],desc:"Confortável, elegante e atemporal. Relaxamento aromático com uma base cremosa de sândalo.",notes:"Lavanda · jasmim · sândalo · baunilha"}
+    {
+      id: "agulhas-pinho-menta",
+      name: "Agulhas de Pinho & Menta",
+      family: "Fougère amadeirado",
+      groups: ["frescos", "amadeirados"],
+      desc: "Fresco, verde e energizante. Uma atmosfera limpa e revigorante, com sensação de respiração aberta.",
+      notes: "Agulhas de pinho · menta · limão · cedro"
+    },
+    {
+      id: "artemisia-cedro",
+      name: "Artemísia & Cedro",
+      family: "Cítrico aromático",
+      groups: ["frescos", "amadeirados"],
+      desc: "Herbal, aromático e seco. Uma composição botânica serena, com elegância natural e fundo de madeira.",
+      notes: "Artemísia · chá verde · lima · cedro"
+    },
+    {
+      id: "bambu-jacinto",
+      name: "Bambu Chinês & Jacinto",
+      family: "Floral musk",
+      groups: ["frescos", "florais"],
+      desc: "Leve, verde e delicado. Um floral arejado, limpo e acolhedor, com transparência contemporânea.",
+      notes: "Bambu verde · jacinto · jasmim · musk"
+    },
+    {
+      id: "baunilha-lavanda",
+      name: "Baunilha & Lavanda",
+      family: "Oriental amadeirado",
+      groups: ["florais", "envolventes"],
+      desc: "Cremoso e reconfortante. A serenidade da lavanda encontra a maciez da baunilha em uma leitura sofisticada.",
+      notes: "Lavanda · baunilha · sândalo · fava tonka"
+    },
+    {
+      id: "baunilha-cha-preto",
+      name: "Baunilha & Chá Preto",
+      family: "Oriental cítrico",
+      groups: ["envolventes"],
+      desc: "Profundo, quente e memorável. A doçura confortável da baunilha ganha contraste com a elegância seca do chá.",
+      notes: "Chá preto · baunilha · especiarias · âmbar"
+    },
+    {
+      id: "cereja-ambar",
+      name: "Cereja & Âmbar",
+      family: "Floral frutal",
+      groups: ["florais", "envolventes"],
+      desc: "Frutado, sensual e envolvente. Cereja luminosa sobre uma base quente e sofisticada de âmbar.",
+      notes: "Cereja · framboesa · orquídea · âmbar"
+    },
+    {
+      id: "coco-tonka-madeiras",
+      name: "Coco, Tonka & Madeiras",
+      family: "Oriental aromático",
+      groups: ["amadeirados", "envolventes"],
+      desc: "Cremoso, dourado e aconchegante. Uma composição indulgente equilibrada por madeiras secas e elegantes.",
+      notes: "Coco · fava tonka · sândalo · âmbar"
+    },
+    {
+      id: "figo-folhas",
+      name: "Figo & Folhas",
+      family: "Floral frutal",
+      groups: ["frescos", "florais"],
+      desc: "Verde, frutado e elegante. O frescor das folhas encontra a textura cremosa do figo em uma assinatura contemporânea.",
+      notes: "Figo · folhas verdes · gardênia · cedro"
+    },
+    {
+      id: "gengibre-patchouli",
+      name: "Gengibre & Patchouli",
+      family: "Madeira cítrico",
+      groups: ["frescos", "amadeirados"],
+      desc: "Vibrante, terroso e moderno. Energia cítrica e especiada na abertura, profundidade amadeirada no fundo.",
+      notes: "Gengibre · bergamota · patchouli · vetiver"
+    },
+    {
+      id: "green-tea",
+      name: "Green Tea",
+      family: "Floral cítrico",
+      groups: ["frescos", "florais"],
+      desc: "Limpo, leve e harmonioso. Chá verde e cítricos criam uma sensação luminosa de frescor contínuo.",
+      notes: "Chá verde · bergamota · flor de laranjeira · madeiras"
+    },
+    {
+      id: "limao-siciliano-hortela",
+      name: "Limão Siciliano & Hortelã",
+      family: "Cítrico aromático",
+      groups: ["frescos"],
+      desc: "Cítrico, refrescante e luminoso. Um encontro vivo entre limão e hortelã para ambientes que pedem leveza.",
+      notes: "Limão siciliano · bergamota · hortelã · cedro"
+    },
+    {
+      id: "neroli-cedro",
+      name: "Neroli & Cedro",
+      family: "Cítrico aromático",
+      groups: ["frescos", "florais", "amadeirados"],
+      desc: "Fresco, refinado e confortável. Flores brancas iluminadas por cítricos repousam sobre uma base suave de madeira.",
+      notes: "Neroli · bergamota · flor de laranjeira · cedro"
+    },
+    {
+      id: "orange-blossom",
+      name: "Orange Blossom",
+      family: "Floral",
+      groups: ["florais"],
+      desc: "Solar, floral e elegante. Flor de laranjeira com brilho frutado e uma assinatura delicada, mas presente.",
+      notes: "Flor de laranjeira · mandarina · jasmim · madeiras"
+    },
+    {
+      id: "salvia-sandalo",
+      name: "Sálvia & Sândalo",
+      family: "Fougère aromático",
+      groups: ["frescos", "amadeirados"],
+      desc: "Aromático, equilibrado e sereno. Notas verdes e herbais encontram a cremosidade discreta do sândalo.",
+      notes: "Sálvia · lavanda · menta · sândalo"
+    },
+    {
+      id: "verbena-capim-santo",
+      name: "Verbena & Capim Santo",
+      family: "Cítrico aromático",
+      groups: ["frescos"],
+      desc: "Fresco, cítrico e relaxante. Uma composição clara e vibrante, criada para trazer sensação de renovação.",
+      notes: "Verbena · capim-santo · grapefruit · cedro"
+    },
+    {
+      id: "iris-cedro",
+      name: "Íris & Cedro",
+      family: "Floral fougère",
+      groups: ["florais", "amadeirados"],
+      desc: "Sofisticado, aveludado e envolvente. Um floral nobre ganha estrutura seca de madeira e profundidade elegante.",
+      notes: "Íris · cereja preta · mirra · cedro"
+    },
+    {
+      id: "lavanda-sandalo",
+      name: "Lavanda & Sândalo",
+      family: "Floral oriental",
+      groups: ["florais", "amadeirados", "envolventes"],
+      desc: "Confortável, elegante e atemporal. Relaxamento aromático com uma base cremosa de sândalo.",
+      notes: "Lavanda · jasmim · sândalo · baunilha"
+    }
   ];
 
   const grid = document.getElementById("aroma-grid");
@@ -42,14 +161,19 @@
   }
   const displayOrder = shuffle(SCENTS);
 
+  function getAromaImageUrl(scent) {
+    return scent.image || `/assets/aromas/novos/${scent.id}.webp`;
+  }
 
   function cardTemplate(scent) {
     const checked = selected.has(scent.id);
+    const imgUrl = getAromaImageUrl(scent);
+
     return `
       <article class="aroma-preview-card ${checked ? "is-selected" : ""}" data-groups="${scent.groups.join(" ")}" data-id="${scent.id}">
         <button class="aroma-preview-map" type="button" data-explore="${scent.id}" aria-label="Ampliar mapa olfativo de ${scent.name}">
           <span class="aroma-smellmap-frame" aria-hidden="true">
-            <img class="aroma-smellmap-sprite" src="/assets/preview/novos-aromas-smellmaps.webp?v=2" alt="" loading="lazy" decoding="async" style="--sprite-index:${scent.sprite};" />
+            <img class="aroma-card-image" src="${imgUrl}" alt="${scent.name}" loading="lazy" decoding="async" onerror="this.style.display='none'" />
           </span>
           <span class="aroma-map-expand">Ampliar mapa olfativo ↗</span>
         </button>
@@ -112,10 +236,13 @@
     if (!explore) return;
     const scent = SCENTS.find((s) => s.id === explore.dataset.explore);
     if (!scent) return;
+
+    const imgUrl = getAromaImageUrl(scent);
+
     detailContent.innerHTML = `
       <div class="aroma-dialog-map">
         <span class="aroma-smellmap-frame aroma-smellmap-frame--large">
-          <img class="aroma-smellmap-sprite" src="/assets/preview/novos-aromas-smellmaps.webp?v=2" alt="Mapa olfativo de ${scent.name}" decoding="async" style="--sprite-index:${scent.sprite};" />
+          <img class="aroma-dialog-image" src="${imgUrl}" alt="Mapa olfativo de ${scent.name}" decoding="async" onerror="this.style.display='none'" />
         </span>
       </div>
       <div class="aroma-dialog-copy">
@@ -147,9 +274,9 @@
     submit.textContent = "Registrando…";
     try {
       const response = await fetch("/api/aroma-vote", {
-        method:"POST",
-        headers:{"content-type":"application/json"},
-        body:JSON.stringify({choices:[...selected],company:""})
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ choices: [...selected], company: "" })
       });
       const data = await response.json();
       if (!response.ok || !data.ok) throw new Error(data.error || "Não foi possível registrar.");
@@ -157,7 +284,10 @@
       submit.textContent = "Escolhas registradas ✓";
     } catch (error) {
       submit.textContent = error.message || "Tente novamente";
-      setTimeout(() => { submit.textContent = old; submit.disabled = false; }, 3500);
+      setTimeout(() => {
+        submit.textContent = old;
+        submit.disabled = false;
+      }, 3500);
     }
   });
 
@@ -168,7 +298,6 @@
     if (event.target === voteDialog) voteDialog.close();
   });
 
-
   async function submitLead(form, message, source) {
     const data = new FormData(form);
     const button = form.querySelector('button[type="submit"]');
@@ -176,14 +305,14 @@
     message.textContent = "Registrando…";
     try {
       const response = await fetch("/api/aroma-notify", {
-        method:"POST",
-        headers:{"content-type":"application/json"},
-        body:JSON.stringify({
-          name:String(data.get("name") || ""),
-          email:String(data.get("email") || ""),
-          marketingConsent:data.get("marketingConsent") === "on",
-          acceptPrivacy:data.get("acceptPrivacy") === "on",
-          company:String(data.get("company") || ""),
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          name: String(data.get("name") || ""),
+          email: String(data.get("email") || ""),
+          marketingConsent: data.get("marketingConsent") === "on",
+          acceptPrivacy: data.get("acceptPrivacy") === "on",
+          company: String(data.get("company") || ""),
           source
         })
       });
@@ -217,20 +346,21 @@
     message.textContent = "Registrando seu pedido de aviso…";
     try {
       const response = await fetch("/api/aroma-notify", {
-        method:"POST",
-        headers:{"content-type":"application/json"},
-        body:JSON.stringify({
-          name:String(form.get("name") || ""),
-          email:String(form.get("email") || ""),
-          marketingConsent:form.get("marketingConsent") === "on",
-          acceptPrivacy:form.get("acceptPrivacy") === "on",
-          company:String(form.get("company") || ""),
-          source:"post-vote"
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          name: String(form.get("name") || ""),
+          email: String(form.get("email") || ""),
+          marketingConsent: form.get("marketingConsent") === "on",
+          acceptPrivacy: form.get("acceptPrivacy") === "on",
+          company: String(form.get("company") || ""),
+          source: "post-vote"
         })
       });
       const data = await response.json();
       if (!response.ok || !data.ok) throw new Error(data.error || "Não foi possível registrar.");
-      notifyForm.innerHTML = '<div class="aroma-notify-success"><span>✓</span><h3>Você está na lista.</h3><p>Se esses aromas avançarem, a AMEVURI poderá avisar você pelo e-mail informado.</p><button class="btn btn-ghost" type="button" data-success-close>Concluir</button></div>';
+      notifyForm.innerHTML =
+        '<div class="aroma-notify-success"><span>✓</span><h3>Você está na lista.</h3><p>Se esses aromas avançarem, a AMEVURI poderá avisar você pelo e-mail informado.</p><button class="btn btn-ghost" type="button" data-success-close>Concluir</button></div>';
       notifyForm.querySelector("[data-success-close]").addEventListener("click", () => voteDialog.close());
     } catch (error) {
       message.textContent = error.message || "Tente novamente em instantes.";
