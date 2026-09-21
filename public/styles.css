@@ -3115,7 +3115,6 @@ body.cart-open {
 /* =========================================================
    AMEVURI v3.2 — Mobile navigation + monogram consistency
    ========================================================= */
-/* The user-facing brand symbol is the botanical AMEVURI A, never a generic A. */
 .brand-mark {
   object-fit: contain;
   mix-blend-mode: normal;
@@ -3173,7 +3172,6 @@ body.cart-open {
   background: rgba(245, 240, 231, 0.96);
 }
 
-/* Replace decorative CSS-generated generic A's with the real AMEVURI symbol. */
 .journal-art:before {
   content: "";
   position: absolute;
@@ -3202,7 +3200,6 @@ body.cart-open {
   pointer-events: none;
 }
 
-/* Mobile menu: fully isolated off-canvas panel. */
 .menu-overlay {
   display: none;
 }
@@ -3379,7 +3376,6 @@ body.cart-open {
 
 /* =========================================================
    AMEVURI v3.3 — Stability-first mobile polish
-   Content is never hidden behind JavaScript-dependent reveal states.
    ========================================================= */
 html,
 body {
@@ -3500,7 +3496,6 @@ main {
   }
 }
 
-/* Defensive fallback: if a browser ignores the menu animation, closed navigation remains off-screen. */
 @media (max-width: 900px) {
   .nav:not(.open) {
     transform: translate3d(104%, 0, 0) !important;
@@ -4535,7 +4530,6 @@ img.img-failed {
     padding-bottom: 90px;
   }
 }
-/* Closed drawers must not remain visible or receive keyboard focus. */
 .cart-drawer:not(.open),
 .selection-drawer:not(.open) {
   visibility: hidden;
@@ -4779,7 +4773,6 @@ img.img-failed {
 @media(max-width:1000px){.collection-preview .editorial-products{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.collection-preview .editorial-products{grid-template-columns:1fr}}
 
-
 /* =========================================================
    Caderno do Atelier — série editorial AMEVURI
    ========================================================= */
@@ -5008,7 +5001,6 @@ img.img-failed {
   .atelier-chapter-nav a+a{border-left:0;border-top:1px solid var(--line);text-align:left}
 }
 
-
 /* =========================================================
    Novos Aromas — curadoria participativa
    ========================================================= */
@@ -5060,6 +5052,18 @@ img.img-failed {
   aspect-ratio:320/530;
   overflow:hidden;
   background:#f4eadb;
+}
+.aroma-card-image,
+.aroma-dialog-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease;
+}
+.aroma-preview-map:hover .aroma-card-image {
+  transform: scale(1.03);
 }
 .aroma-smellmap-sprite{
   display:block;
