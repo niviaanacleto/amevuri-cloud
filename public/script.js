@@ -188,3 +188,91 @@ document.querySelectorAll("img").forEach((img) => {
   if (img.complete && img.naturalWidth === 0) markFailure();
   else img.addEventListener("error", markFailure, { once: true });
 });
+
+/* AMEVURI — Home / Atelier de Criação: 3 aromas diferentes a cada acesso. */
+(() => {
+  const preview = document.querySelector("#home-aroma-preview");
+  if (!preview) return;
+
+  const aromas = [
+    ["agulhas-pinho-menta","Agulhas de Pinho & Menta"],
+    ["artemisia-cedro","Artemísia & Cedro"],
+    ["bambu-jacinto","Bambu Chinês & Jacinto"],
+    ["baunilha-cha-preto","Baunilha & Chá Preto"],
+    ["baunilha-lavanda","Baunilha & Lavanda"],
+    ["cereja-ambar","Cereja & Âmbar"],
+    ["coco-tonka-madeiras","Coco, Tonka & Madeiras"],
+    ["figo-folhas","Figo & Folhas"],
+    ["gengibre-patchouli","Gengibre & Patchouli"],
+    ["green-tea","Green Tea"],
+    ["iris-cedro","Íris & Cedro"],
+    ["lavanda-sandalo","Lavanda & Sândalo"],
+    ["limao-siciliano-hortela","Limão Siciliano & Hortelã"],
+    ["neroli-cedro","Neroli & Cedro"],
+    ["orange-blossom","Orange Blossom"],
+    ["salvia-sandalo","Sálvia & Sândalo"],
+    ["verbena-capim-santo","Verbena & Capim Santo"],
+  ].map(([id,name]) => ({
+    id,
+    name,
+    image: `/assets/aromas/novos/${id}.webp`,
+  }));
+
+  const storageKey = "amevuri-home-aromas-last-v1";
+  const cards = [...preview.querySelectorAll("[data-home-aroma-card]")];
+  if (cards.length !== 3) return;
+
+  const previousIds = (() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || "[]");
+      return Array.isArray(saved) ? saved : [];
+    } catch (_error) {
+      return [];
+    }
+  })();
+
+  const available = aromas.filter((aroma) => !previousIds.includes(aroma.id));
+  const pool = available.length >= 3 ? [...available] : [...aromas];
+
+  for (let i = pool.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+
+  const selected = pool.slice(0, 3);
+
+  const preload = (src) =>
+    new Promise((resolve) => {
+      const image = new Image();
+      image.onload = resolve;
+      image.onerror = resolve;
+      image.src = src;
+    });
+
+  Promise.all(selected.map((aroma) => preload(aroma.image))).then(() => {
+    cards.forEach((card) => card.classList.add("is-changing"));
+
+    window.setTimeout(() => {
+      cards.forEach((card, index) => {
+        const aroma = selected[index];
+        const image = card.querySelector(".home-smellmap-image");
+        if (!image) return;
+        image.src = aroma.image;
+        image.dataset.aroma = aroma.name;
+        card.dataset.aromaId = aroma.id;
+      });
+
+      try {
+        localStorage.setItem(
+          storageKey,
+          JSON.stringify(selected.map((aroma) => aroma.id)),
+        );
+      } catch (_error) {}
+
+      requestAnimationFrame(() => {
+        cards.forEach((card) => card.classList.remove("is-changing"));
+      });
+    }, 180);
+  });
+})();
+
