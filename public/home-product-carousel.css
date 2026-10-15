@@ -187,3 +187,35 @@
   .home-product-carousel .home-product-view,
   .home-product-carousel .home-product-arrow { transition: none; }
 }
+/* Visual de campanha: vitrine consistente com a nova faixa de entrega. */
+.amevuri-home .home-product-carousel {
+  background: #f6f2ea;
+  padding-top: 36px;
+}
+.amevuri-home .home-product-carousel .home-product-kicker {
+  color: #aa7c37;
+  font-size: 12px;
+  letter-spacing: .18em;
+}
+.amevuri-home .home-product-carousel .home-product-heading {
+  font-size: clamp(31px, 3.3vw, 46px);
+}
+.amevuri-home .home-product-carousel .home-product-stage {
+  border-color: rgba(15, 59, 47, .16);
+  box-shadow: 0 8px 26px rgba(15, 59, 47, .055);
+}
+.amevuri-home .home-product-carousel .home-product-price {
+  font-size: clamp(26px, 2.5vw, 34px);
+  font-weight: 600;
+}
+.amevuri-home .home-product-carousel .home-product-arrow {
+  border-color: #143c30;
+}
+@media (max-width: 720px) {
+  .amevuri-home .home-product-carousel {
+    padding-top: 28px;
+  }
+  .amevuri-home .home-product-carousel .home-product-heading {
+    font-size: 32px;
+  }
+}
