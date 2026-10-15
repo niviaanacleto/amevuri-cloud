@@ -3,7 +3,8 @@
   const root = document.querySelector('.collection-product-hero');
   if (!collection || !root) return;
   const inputs = [...root.querySelectorAll('input[name="collection-format"]')];
-  const photo = root.querySelector('figure img');
+  const photo = root.querySelector('[data-product-featured-photo]') || root.querySelector('figure img');
+  const thumbnails = [...root.querySelectorAll('[data-format-thumbnail]')];
   const price = root.querySelector('[data-collection-price]');
   const caption = root.querySelector('[data-collection-caption]');
   const formatAdvice = root.querySelector('[data-format-advice]');
@@ -25,6 +26,9 @@
     const product = collection.products.find(p => p.key === selected?.value);
     if (!product) return;
     photo.src = product.image;
+    for (const thumb of thumbnails) {
+      thumb.setAttribute('aria-pressed', String(thumb.dataset.formatThumbnail === product.key));
+    }
     photo.alt = `${product.name} ${product.size} ${collection.name} AMEVURI`;
     caption.textContent = `${product.name} · ${product.size}`;
     if (formatAdvice) {
@@ -59,6 +63,20 @@
     actions.append(inquiry);
   }
   inputs.forEach(input => input.addEventListener('change', render));
+  thumbnails.forEach(thumb => thumb.addEventListener('click', () => {
+    const target = inputs.find(input => input.value === thumb.dataset.formatThumbnail);
+    if (!target) return;
+    target.checked = true;
+    render();
+  }));
+  root.querySelector('[data-select-miniature]')?.addEventListener('click', event => {
+    const mini = inputs.find(input => input.value === 'mini');
+    if (!mini) return;
+    event.preventDefault();
+    mini.checked = true;
+    render();
+    root.querySelector('.collection-options')?.scrollIntoView({behavior: 'auto', block: 'center'});
+  });
   render();
   fetch('/api/inventory', {headers:{accept:'application/json'}})
     .then(r => r.ok ? r.json() : null)
