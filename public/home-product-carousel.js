@@ -9,7 +9,7 @@
       ...product,
       fragrance: collection.name,
       family: collection.family,
-      href: '/produto-' + collection.id + '?formato=' + encodeURIComponent(product.key)
+      href: '/' + ({vela:'vela-aromatica',home:'home-parfum',wax:'wax-melts',mini:'miniatura-vela',difusor:'difusor-varetas'}[product.key]) + '-' + ({cumaru:'cumaru-sandalo',sakura:'sakura-musk',rosa:'rosa-acafrao'}[collection.id])
     }))
   );
   if (!products.length) return;
