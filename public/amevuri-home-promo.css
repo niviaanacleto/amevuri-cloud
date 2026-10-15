@@ -290,3 +290,24 @@
     font-size: 26px;
   }
 }
+
+/* Pedido mínimo elegível para entrega gratuita nas regiões indicadas. */
+.amevuri-home .delivery-banner-minimum {
+  margin: 7px 0 3px;
+  color: #fff8ec;
+  font: 500 13px/1.55 "Inter", sans-serif;
+}
+.amevuri-home .delivery-banner-minimum strong {
+  color: #eacb8d;
+  font-weight: 700;
+  font-size: 16px;
+}
+@media (max-width: 900px) {
+  .amevuri-home .delivery-banner-minimum {
+    font-size: 12px;
+    margin: 6px 0 2px;
+  }
+  .amevuri-home .delivery-banner-minimum strong {
+    font-size: 14px;
+  }
+}
