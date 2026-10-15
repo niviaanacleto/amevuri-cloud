@@ -1,0 +1,193 @@
+/* AMEVURI | Home: vitrine, entrega regional e contato | 2026-10 */
+.amevuri-home .site-header {
+  padding-inline: clamp(24px, 3.1vw, 58px);
+  gap: clamp(22px, 2.4vw, 42px);
+}
+.amevuri-home .site-header .brand {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+@media (min-width: 1351px) {
+  .amevuri-home .site-header .nav {
+    gap: clamp(11px, 1.1vw, 19px);
+    font-size: 0.68rem;
+    letter-spacing: 0.045em;
+  }
+  .amevuri-home .site-header .nav > a {
+    white-space: nowrap;
+  }
+}
+
+/* The header is fixed: the announcement must begin BELOW it, not behind it. */
+.amevuri-home .delivery-banner {
+  position: relative;
+  z-index: 2;
+  margin-top: 88px;
+  display: block;
+  width: 100%;
+  background: radial-gradient(circle at 95% 50%, #225645 0, #103b30 44%, #0a3027 100%);
+  color: #fbf8f2;
+  border-block: 1px solid rgba(203, 167, 99, .42);
+}
+.amevuri-home .delivery-banner-inner {
+  width: min(1320px, calc(100% - 64px));
+  margin-inline: auto;
+  min-height: 156px;
+  padding-block: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 30px;
+}
+.amevuri-home .delivery-banner-copy {
+  display: grid;
+  gap: 3px;
+  text-align: left;
+  min-width: 0;
+}
+.amevuri-home .delivery-banner-label {
+  color: #d8ba83;
+  font: 600 11px/1.5 "Inter", sans-serif;
+  letter-spacing: .2em;
+}
+.amevuri-home .delivery-banner-title {
+  color: #fbf8f2;
+  font: 500 clamp(27px, 2.25vw, 37px)/1.05 "Cormorant Garamond", Georgia, serif;
+  margin: 2px 0 8px;
+}
+.amevuri-home .delivery-banner-regions {
+  font: 400 13px/1.6 "Inter", sans-serif;
+  color: #fffaf0;
+  margin: 0;
+}
+.amevuri-home .delivery-banner-instructions {
+  font: 400 11px/1.5 "Inter", sans-serif;
+  color: rgba(255, 250, 240, .86);
+  margin: 0;
+}
+.amevuri-home .delivery-banner-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 15px 22px;
+  min-height: 52px;
+  min-width: 220px;
+  background: #f5f0e7;
+  border: 1px solid #f5f0e7;
+  color: #123c31;
+  text-decoration: none;
+  font: 600 11px/1.25 "Inter", sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .075em;
+  transition: background .2s, color .2s, transform .2s;
+}
+.amevuri-home .delivery-banner-link:hover,
+.amevuri-home .delivery-banner-link:focus-visible {
+  background: transparent;
+  color: #fff;
+  transform: translateY(-1px);
+  outline-offset: 3px;
+}
+
+/* A shorter editorial hero brings the real product grid nearer to the fold. */
+@media (min-width: 901px) {
+  .amevuri-home .hero.hero-v2 {
+    min-height: 580px;
+    padding-top: 72px;
+    padding-bottom: 68px;
+    gap: 56px;
+  }
+  .amevuri-home .hero.hero-v2 .hero-art-v4 {
+    min-height: 470px;
+  }
+  .amevuri-home .hero.hero-v2 .hero-art-v4 > img {
+    max-height: 450px;
+  }
+  .amevuri-home .hero.hero-v2 .hero-copy h1 {
+    font-size: clamp(4rem, 5.8vw, 6.3rem);
+  }
+}
+
+/* Reuse the official transparent monogram already shipped with the brand. */
+.amevuri-home .whatsapp.amevuri-whatsapp {
+  width: 66px;
+  height: 66px;
+  right: 24px;
+  bottom: 24px;
+  padding: 10px;
+  border: 1px solid rgba(182, 138, 67, .7);
+  border-radius: 50%;
+  background: #fbf8f2;
+  box-shadow: 0 10px 30px rgba(10, 45, 36, .22);
+  display: grid;
+  place-items: center;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.amevuri-home .whatsapp.amevuri-whatsapp:hover,
+.amevuri-home .whatsapp.amevuri-whatsapp:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 13px 34px rgba(10, 45, 36, .28);
+}
+.amevuri-home .amevuri-whatsapp img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 45px;
+  max-height: 45px;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .amevuri-home .delivery-banner {
+    margin-top: 88px;
+  }
+  .amevuri-home .delivery-banner-inner {
+    width: calc(100% - 40px);
+    min-height: 0;
+    padding: 21px 0 24px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .amevuri-home .delivery-banner-title {
+    font-size: clamp(26px, 6.5vw, 34px);
+  }
+  .amevuri-home .delivery-banner-regions {
+    font-size: 12px;
+  }
+  .amevuri-home .delivery-banner-instructions {
+    font-size: 11px;
+  }
+  .amevuri-home .delivery-banner-link {
+    min-width: 0;
+    width: 100%;
+    min-height: 46px;
+    padding: 13px 16px;
+  }
+  .amevuri-home .hero.hero-v2 {
+    padding-top: 42px !important;
+    padding-bottom: 54px !important;
+  }
+  .amevuri-home .whatsapp.amevuri-whatsapp {
+    width: 58px;
+    height: 58px;
+    right: 16px;
+    bottom: 80px;
+    padding: 8px;
+  }
+}
+@media (max-width: 560px) {
+  .amevuri-home .delivery-banner {
+    margin-top: 82px;
+  }
+  .amevuri-home .delivery-banner-inner {
+    width: calc(100% - 32px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .amevuri-home .delivery-banner-link,
+  .amevuri-home .whatsapp.amevuri-whatsapp {
+    transition: none;
+  }
+}
