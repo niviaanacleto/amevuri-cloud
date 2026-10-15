@@ -19,6 +19,18 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .delivery-banner{background:#103b30;color:#f7f1e6;padding:13px 24px;border-bottom:1px solid rgba(255,255,255,.17)}
+      .delivery-banner-inner{max-width:1320px;margin:auto;display:flex;align-items:center;justify-content:center;gap:30px}
+      .delivery-banner-copy{display:flex;flex-direction:column;gap:3px;text-align:center;line-height:1.45}
+      .delivery-banner-copy strong{font:600 12px/1.5 Inter,sans-serif;letter-spacing:.2em}
+      .delivery-banner-copy span{font:italic 22px/1.2 "Cormorant Garamond",serif}
+      .delivery-banner-copy small{font:400 11px/1.5 Inter,sans-serif;letter-spacing:.01em}
+      .delivery-banner-link{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;padding:11px 17px;border:1px solid rgba(247,241,230,.65);color:#f7f1e6;text-decoration:none;font:500 11px/1.4 Inter,sans-serif;letter-spacing:.06em;transition:background .2s,color .2s}
+      .delivery-banner-link:hover,.delivery-banner-link:focus-visible{background:#f7f1e6;color:#103b30}
+      @media(max-width:760px){.delivery-banner{padding:12px 16px}.delivery-banner-inner{flex-direction:column;gap:10px}.delivery-banner-copy span{font-size:20px}.delivery-banner-copy small{font-size:10px}.delivery-banner-link{padding:9px 15px;font-size:10px}}
+    </style>
+
 
     <title>
       AMEVURI | Perfumaria para o Lar, Velas Botânicas e Design Sensorial
@@ -70,6 +82,17 @@
   </head>
   <body>
     <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+    <aside class="delivery-banner" aria-label="Entrega gratuita em regiões selecionadas">
+      <div class="delivery-banner-inner">
+        <div class="delivery-banner-copy">
+          <strong>ENTREGA GRATUITA</strong>
+          <span>Um cuidado a mais, até a sua porta.</span>
+          <small>Niterói — Centro, Icaraí e Região Oceânica — e Zona Sul do Rio de Janeiro.</small>
+          <small>Para essas regiões, faça seu pedido pelo WhatsApp: (21) 97113-3616.</small>
+        </div>
+        <a class="delivery-banner-link" href="https://wa.me/5521971133616?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido%20com%20entrega%20gratuita%20na%20regi%C3%A3o%20atendida." target="_blank" rel="noopener noreferrer">Pedir pelo WhatsApp <span aria-hidden="true">↗</span></a>
+      </div>
+    </aside>
     <header class="site-header" id="topo">
       <a class="brand" href="/index.html" aria-label="AMEVURI, início">
         <img
@@ -116,7 +139,7 @@
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="/colecao"
-              >Explorar produtos</a
+              >EXPLORAR PRODUTOS</a
             >
             <a class="btn btn-ghost" href="/sobre">Conheça a AMEVURI</a>
           </div>
