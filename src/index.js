@@ -2,6 +2,7 @@ import { validateCustomer } from "./lib/customer.js";
 import { providerFetch, safeHttpsUrl } from "./lib/provider-http.js";
 import { AmevuriStore, storeStub } from "./store.js";
 import { CATALOG, catalogArray, validateItems } from "./lib/catalog.js";
+import { renderMerchantFeed } from "./lib/merchant-feed.js";
 import { json, html, cleanDigits } from "./lib/http.js";
 import {
   sumupConfigured,
@@ -375,6 +376,19 @@ async function routeApi(req, env, ctx, path) {
         return json({ ok: false, error: "Método não permitido." }, 405);
       const dashboard = await store.aromaVoteDashboard();
       return json({ ok: true, ...dashboard });
+    }
+    if (path === "/api/merchant-feed.xml") {
+      if (req.method !== "GET" && req.method !== "HEAD")
+        return new Response(null, { status: 405, headers: { Allow: "GET, HEAD" } });
+      const stock = await store.getInventory();
+      const feed = renderMerchantFeed(catalogArray(), stock);
+      return new Response(req.method === "HEAD" ? null : feed, {
+        status: 200,
+        headers: {
+          "Content-Type": "application/xml; charset=utf-8",
+          "Cache-Control": "public, max-age=300"
+        }
+      });
     }
     if (path === "/api/inventory") {
       const stock = await store.getInventory();
