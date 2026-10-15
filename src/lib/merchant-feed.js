@@ -36,7 +36,7 @@ export function renderMerchantFeed(products, stock) {
     }
     const quantity = Number(stock[product.id]);
     if (!Number.isFinite(quantity)) throw new Error("Estoque não confirmado para " + product.id);
-    const size = String(product.size).replace(/(\\d)(g)\\b/gi, "$1 $2").replace(/(\\d)(ml)\\b/gi, "$1 $2");
+    const size = String(product.size).replace(/(\d)(g)\b/gi, "$1 $2").replace(/(\d)(ml)\b/gi, "$1 $2");
     const title = [product.name, size, product.fragrance, "AMEVURI"].join(" ");
     return [
       "<item>",
