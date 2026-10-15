@@ -6,6 +6,14 @@
   const photo = root.querySelector('figure img');
   const price = root.querySelector('[data-collection-price]');
   const caption = root.querySelector('[data-collection-caption]');
+  const formatAdvice = root.querySelector('[data-format-advice]');
+  const formatGuides = {
+    vela: ['Vela aromática', 'Para momentos em que você deseja acender a vela e apreciar o perfume enquanto ela queima, seguindo as orientações de segurança.'],
+    home: ['Home Parfum', 'Para perfumar o ambiente de forma pontual, quando você desejar. Siga as orientações de aplicação do produto.'],
+    wax: ['Wax Melts', 'Para quem utiliza um aromatizador compatível com esse formato e deseja perfumar o ambiente por aquecimento.'],
+    mini: ['Miniatura de vela', 'Uma forma de conhecer a fragrância em um tamanho menor antes de escolher outros formatos.'],
+    difusor: ['Difusor de varetas', 'Para quem prefere utilizar varetas para difundir a fragrância no ambiente, conforme as orientações de uso.']
+  };
   const status = root.querySelector('[data-collection-stock]');
   const actions = root.querySelector('[data-collection-actions]');
   let stock = {};
@@ -19,6 +27,13 @@
     photo.src = product.image;
     photo.alt = `${product.name} ${product.size} ${collection.name} AMEVURI`;
     caption.textContent = `${product.name} · ${product.size}`;
+    if (formatAdvice) {
+      const guide = formatGuides[product.key];
+      if (guide) {
+        formatAdvice.querySelector('strong').textContent = guide[0];
+        formatAdvice.querySelector('p').textContent = guide[1];
+      }
+    }
     const registered = product.sku && window.AMEVURI_CART?.PRODUCTS[product.sku];
     const confirmedPrice = registered?.price ?? product.price;
     price.textContent = Number.isFinite(confirmedPrice) ? window.AMEVURI_CART.money(confirmedPrice) : 'Consulte o preço';
