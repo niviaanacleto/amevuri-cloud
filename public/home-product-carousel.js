@@ -15,6 +15,7 @@
   if (!products.length) return;
 
   const picture = root.querySelector('[data-carousel-photo]');
+  const photoLink = root.querySelector('[data-carousel-link-photo]');
   const family = root.querySelector('[data-carousel-family]');
   const title = root.querySelector('[data-carousel-name]');
   const size = root.querySelector('[data-carousel-size]');
@@ -25,7 +26,7 @@
   const total = root.querySelector('[data-carousel-total]');
   const prev = root.querySelector('[data-carousel-prev]');
   const next = root.querySelector('[data-carousel-next]');
-  if ([picture, family, title, size, price, link, buy, current, total, prev, next].some(v => !v)) return;
+  if ([picture, photoLink, family, title, size, price, link, buy, current, total, prev, next].some(v => !v)) return;
 
   let index = 0;
   const money = value => new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(value);
@@ -40,6 +41,7 @@
     size.textContent = item.size + ' · ' + item.family;
     price.textContent = money(registered?.price ?? item.price);
     link.href = item.href;
+    photoLink.href = item.href;
     buy.dataset.sku = item.sku || '';
     buy.disabled = !registered;
     buy.hidden = !registered;
