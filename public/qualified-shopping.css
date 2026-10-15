@@ -1,0 +1,167 @@
+/* AMEVURI | Percurso de compra qualificado | Outubro de 2026 */
+
+/* Atalhos discretos após a vitrine, para quem já sabe o que procura. */
+.amevuri-home .home-buying-shortcuts {
+  margin-top: 24px;
+  padding-top: 19px;
+  border-top: 1px solid rgba(15, 59, 47, .16);
+}
+.amevuri-home .home-buying-shortcuts-title {
+  margin: 0 0 12px;
+  color: #164134;
+  font: 500 21px/1.15 "Cormorant Garamond", Georgia, serif;
+}
+.amevuri-home .home-buying-shortcuts-links {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.amevuri-home .home-buying-shortcuts-links a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 79px;
+  padding: 12px 14px;
+  border: 1px solid rgba(15, 59, 47, .2);
+  background: rgba(255, 255, 255, .52);
+  color: #143c30;
+  text-decoration: none;
+  transition: border-color .2s, background .2s;
+}
+.amevuri-home .home-buying-shortcuts-links a:hover,
+.amevuri-home .home-buying-shortcuts-links a:focus-visible {
+  border-color: #143c30;
+  background: #fffdf9;
+}
+.amevuri-home .home-buying-shortcuts-links strong {
+  font: 600 12px/1.4 "Inter", sans-serif;
+}
+.amevuri-home .home-buying-shortcuts-links small {
+  display: block;
+  margin-top: 4px;
+  color: #566b60;
+  font: 400 11px/1.4 "Inter", sans-serif;
+}
+
+/* Seleção de formato mais rápida para visitantes com intenção de compra. */
+.amevuri-catalog .catalog-useful-path {
+  padding-top: 26px;
+  padding-bottom: 22px;
+}
+.amevuri-catalog .catalog-useful-path .catalog-useful-heading {
+  color: var(--green);
+  font: 500 clamp(24px, 2.8vw, 34px)/1.12 "Cormorant Garamond", Georgia, serif;
+  margin: 0 0 12px;
+}
+.amevuri-catalog .catalog-useful-path .hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0;
+}
+.amevuri-catalog .catalog-useful-path .hero-actions .btn {
+  padding: 12px 17px;
+  font-size: 11px;
+}
+.amevuri-catalog .shop-filter {scroll-margin-top: 115px;}
+.amevuri-catalog .catalog-filter-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 18px;
+  margin: -21px 0 24px;
+  color: #51645a;
+  font: 400 12px/1.5 "Inter", sans-serif;
+}
+.amevuri-catalog .catalog-filter-summary a {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.amevuri-catalog .filter:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+/* Explicação dinâmica vinculada ao formato selecionado nas páginas de fragrâncias. */
+.collection-page .product-format-intro {
+  margin: 17px 0 10px;
+  color: var(--scent-color);
+  font: 600 13px/1.5 "Inter", sans-serif;
+}
+.collection-page .product-format-advice {
+  margin: -6px 0 18px;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, .76);
+  border-left: 3px solid var(--scent-color);
+}
+.collection-page .product-format-advice strong {
+  display: block;
+  margin: 0 0 5px;
+  color: var(--scent-color);
+  font: 600 13px/1.45 "Inter", sans-serif;
+}
+.collection-page .product-format-advice p {
+  margin: 0;
+  color: #33453b;
+  font: 400 13px/1.65 "Inter", sans-serif;
+}
+.collection-page .product-room-note {
+  margin: 14px 0 4px;
+  font: 400 13px/1.65 "Inter", sans-serif;
+  color: #405147;
+}
+.collection-page .product-room-note strong {font-weight: 600;}
+.collection-page .product-confidence {
+  margin: 22px 0 13px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(15, 59, 47, .18);
+  display: grid;
+  gap: 7px;
+  color: #375348;
+  font: 400 12px/1.55 "Inter", sans-serif;
+}
+.collection-page .product-confidence > span::before {
+  content: "✓";
+  color: var(--scent-color);
+  font-weight: 700;
+  margin-right: 9px;
+}
+.collection-page .product-confidence a {
+  color: var(--scent-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.collection-page .product-discovery {
+  display: inline-block;
+  font: 500 12px/1.6 "Inter", sans-serif;
+  color: var(--scent-color);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Low movement for those who prefer reduced animation. */
+@media (prefers-reduced-motion: reduce) {
+  .amevuri-home .home-buying-shortcuts-links a {
+    transition: none;
+  }
+}
+@media (max-width: 900px) {
+  .amevuri-home .home-buying-shortcuts-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .amevuri-home .home-buying-shortcuts-links a {min-height: 74px; padding: 12px;}
+  .amevuri-home .home-buying-shortcuts-links strong {font-size: 11px;}
+  .amevuri-home .home-buying-shortcuts-links small {font-size: 10px;}
+  .amevuri-catalog .catalog-useful-path .hero-actions .btn {
+    flex: 1 1 42%;
+    text-align: center;
+  }
+  .amevuri-catalog .catalog-filter-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
