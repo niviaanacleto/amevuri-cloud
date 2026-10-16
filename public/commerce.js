@@ -492,7 +492,7 @@
           return;
         }
         setShippingStatus(
-          `${data.quotes.length} ${data.quotes.length === 1 ? "opção encontrada" : "opções encontradas"}. Escolha a entrega desejada.`,
+          data.freeShippingEligible ? "Entrega gratuita aplicada à modalidade econômica para este CEP. Escolha a opção desejada." : `${data.quotes.length} ${data.quotes.length === 1 ? "opção encontrada" : "opções encontradas"}. Escolha a entrega desejada.`,
           "success",
         );
         data.quotes.forEach((q, idx) => {
@@ -502,7 +502,7 @@
             q.deliveryTime != null && Number.isFinite(Number(q.deliveryTime))
               ? `até ${q.deliveryTime} dias úteis após a postagem`
               : "prazo informado pela transportadora";
-          label.innerHTML = `<input type="radio" name="shipping" ${idx === 0 ? "checked" : ""}><span><strong>${escapeHtml(q.company)} · ${escapeHtml(q.service)}</strong><small>${deadline}</small></span><b>${money(q.price)}</b>`;
+          label.innerHTML = `<input type="radio" name="shipping" ${idx === 0 ? "checked" : ""}><span><strong>${escapeHtml(q.company)} · ${escapeHtml(q.service)}</strong><small>${deadline}</small></span><b>${q.freeShippingPromotion ? "Grátis" : money(q.price)}</b>`;
           const choose = () => {
             quoteBox
               .querySelectorAll(".shipping-option")
