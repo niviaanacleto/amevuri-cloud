@@ -14,6 +14,7 @@ import {
   deactivateCheckout,
 } from "./providers/sumup.js";
 import * as ME from "./providers/melhor-envio.js";
+import { lookupPostalAddress, assertPostalAddressMatches } from "./lib/postal-address.js";
 import { applyRegionalFreeShipping } from "./lib/regional-free-shipping.js";
 import {
   emailConfigured,
@@ -697,6 +698,13 @@ async function routeApi(req, env, ctx, path) {
         });
       }
     }
+    if (path === "/api/validate-postal-address") {
+      if (req.method !== "POST")
+        return json({ ok: false, error: "Método não permitido." }, 405);
+      const body = await readBody(req);
+      const address = await lookupPostalAddress(body.postalCode);
+      return json({ ok: true, address });
+    }
     if (path === "/api/shipping-quote") {
       if (req.method !== "POST")
         return json({ ok: false, error: "Método não permitido." }, 405);
@@ -726,6 +734,10 @@ async function routeApi(req, env, ctx, path) {
       const body = await readBody(req),
         validated = validateItems(body.items),
         customer = validateCustomer(body.customer);
+      // Confirmar o endereço antes de reservar estoque ou iniciar cobrança.
+      // Não confiar nos campos cidade/UF enviados pelo navegador.
+      const verifiedAddress = await lookupPostalAddress(customer.postalCode);
+      assertPostalAddressMatches(customer, verifiedAddress);
       const selectedId = String(body.shipping?.id || "");
       if (!selectedId)
         return json({ ok: false, error: "Selecione uma opção de frete." }, 400);
@@ -1137,6 +1149,7 @@ async function routeApi(req, env, ctx, path) {
       return json({ ok: false, code: e.code, error: e.message }, e.status || 400);
     if (
       String(e.code || "").startsWith("SHIPPING_") ||
+      String(e.code || "").startsWith("POSTAL_") ||
       e.code === "INVALID_POSTAL_CODE"
     )
       return json(

@@ -208,6 +208,42 @@ test("CPF, UF e telefone são validados antes de cobrar", async () => {
     assert.equal(h.state.checkouts.size, 0);
   }
 });
+test("Validação de CEP identifica município e UF antes da cotação", async () => {
+  const h = await harness();
+  const result = await h.api("/api/validate-postal-address", { postalCode: "01001000" });
+  assert.equal(result.status, 200);
+  assert.equal(result.data.address.city, "São Paulo");
+  assert.equal(result.data.address.state, "SP");
+  assert.equal(result.data.address.postalCode, "01001000");
+  assert.equal((await h.api("/api/validate-postal-address", { postalCode: "abc" })).status, 400);
+  h.state.lookupAddress = { erro: true };
+  const notFound = await h.api("/api/validate-postal-address", { postalCode: "01001000" });
+  assert.equal(notFound.status, 422);
+  assert.equal(notFound.data.code, "POSTAL_NOT_FOUND");
+});
+
+test("Checkout rejeita CEP de outra cidade e UF antes de reservar ou cobrar", async () => {
+  const h = await harness();
+  for (const patch of [{ city: "Niterói" }, { state: "RJ" }, { city: "  Rio de Janeiro  " }]) {
+    const order = payload();
+    order.customer = { ...customer, ...patch };
+    const result = await h.api("/api/create-checkout", order);
+    assert.equal(result.status, 422);
+    assert.equal(result.data.code, "POSTAL_ADDRESS_MISMATCH");
+    assert.equal(h.state.checkouts.size, 0);
+    assert.equal((await h.store.getInventory())[cart[0].id], 10);
+  }
+});
+
+test("Checkout bloqueia CEP inexistente antes da cobrança", async () => {
+  const h = await harness();
+  h.state.lookupAddress = { erro: true };
+  const result = await h.api("/api/create-checkout", payload());
+  assert.equal(result.status, 422);
+  assert.equal(result.data.code, "POSTAL_NOT_FOUND");
+  assert.equal(h.state.checkouts.size, 0);
+});
+
 test("Frete alterado exige confirmação do novo preço", async () => {
   const h = await harness();
   h.state.quotePrice = 25;

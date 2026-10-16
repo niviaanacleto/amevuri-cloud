@@ -10,6 +10,7 @@ export async function harness() {
     calls: [],
     checkouts: new Map(),
     quotePrice: 12.5,
+    lookupAddress: { cep: "01001-000", localidade: "São Paulo", uf: "SP", bairro: "Sé", logradouro: "Praça da Sé" },
     emailFail: false,
     ambiguous: false,
     quoteDelay: 0,
@@ -54,6 +55,9 @@ export async function harness() {
       method = opt.method || "GET",
       body = typeof opt.body === "string" ? JSON.parse(opt.body) : opt.body;
     state.calls.push({ url: String(url), method, body, headers: opt.headers });
+    if (u.hostname === "viacep.com.br") {
+      return Response.json(state.lookupAddress);
+    }
     if (u.hostname === "api.resend.com")
       return Response.json(
         state.emailFail
