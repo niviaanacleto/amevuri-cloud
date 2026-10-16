@@ -311,3 +311,151 @@
     font-size: 14px;
   }
 }
+
+/* Home AMEVURI | Conversao comercial: primeiro hero, depois colecao e categoria. */
+.amevuri-home #conteudo {
+  display: flow-root;
+}
+.amevuri-home .hero.hero-v2 {
+  padding-top: 118px;
+  padding-bottom: 42px;
+  min-height: min(800px, 90svh);
+}
+.amevuri-home .hero.hero-v2 .hero-art-v4 {
+  min-height: 420px;
+}
+.amevuri-home .hero.hero-v2 .hero-art-v4 > img.hero-product-photo {
+  width: min(100%, 640px);
+  max-height: 470px;
+  object-fit: contain;
+  mix-blend-mode: normal;
+  filter: none;
+}
+.amevuri-home .hero.hero-v2 .hero-copy h1 {
+  font-size: clamp(3.5rem, 5.9vw, 6.3rem);
+}
+.amevuri-home .hero.hero-v2 .hero-seal {
+  pointer-events: none;
+}
+.amevuri-home .hero.hero-v2 .hero-note {
+  background: rgba(251, 248, 242, .87);
+}
+.amevuri-home .delivery-banner {
+  margin-top: 0;
+}
+.amevuri-home .delivery-banner-inner {
+  min-height: 0;
+  padding-block: 18px;
+}
+.amevuri-home .delivery-banner-icon {
+  width: 68px;
+  height: 68px;
+}
+.amevuri-home .delivery-banner-icon svg {
+  width: 49px;
+  height: 49px;
+}
+.amevuri-home .delivery-banner-inner {
+  grid-template-columns: 68px minmax(0, 1fr) auto;
+}
+.amevuri-home .delivery-banner-title {
+  font-size: clamp(26px, 2.6vw, 37px);
+  margin-bottom: 5px;
+}
+.amevuri-home .delivery-banner-link {
+  min-height: 49px;
+}
+.amevuri-home .home-category-section {
+  background: #f6f2ea;
+  border-bottom: 1px solid rgba(15, 59, 47, .12);
+  padding: 30px max(24px, calc((100vw - 1300px) / 2)) 22px;
+}
+.amevuri-home .home-category-section .home-buying-shortcuts {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.amevuri-home .home-category-section .home-buying-shortcuts-title {
+  font-size: clamp(25px, 2.8vw, 36px);
+  margin: 0 0 16px;
+}
+.amevuri-home .home-category-section .home-buying-shortcuts-links {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.amevuri-home .home-category-section .home-buying-shortcuts-links a {
+  min-height: 94px;
+}
+.amevuri-home .home-product-carousel {
+  padding-top: 24px;
+}
+.amevuri-home .identity {
+  padding-top: 85px;
+  padding-bottom: 85px;
+}
+.amevuri-home .identity-asides .text-link {
+  display: inline-block;
+  margin-top: 14px;
+}
+@media (max-width: 900px) {
+  .amevuri-home .hero.hero-v2 {
+    min-height: 0;
+    padding-top: 112px !important;
+    padding-bottom: 32px !important;
+    gap: 4px;
+  }
+  .amevuri-home .hero.hero-v2 .hero-art-v4 {
+    min-height: 270px;
+  }
+  .amevuri-home .hero.hero-v2 .hero-art-v4 > img.hero-product-photo {
+    max-height: 280px;
+    width: min(100%, 400px) !important;
+  }
+  .amevuri-home .delivery-banner {
+    margin-top: 0;
+  }
+  .amevuri-home .delivery-banner-inner {
+    grid-template-columns: 54px minmax(0, 1fr);
+    padding-block: 17px;
+  }
+  .amevuri-home .delivery-banner-icon {
+    width: 52px;
+    height: 52px;
+  }
+  .amevuri-home .delivery-banner-icon svg {
+    width: 39px;
+    height: 39px;
+  }
+  .amevuri-home .home-category-section {
+    padding: 25px 20px;
+  }
+  .amevuri-home .home-category-section .home-buying-shortcuts-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .amevuri-home .home-category-section .home-buying-shortcuts-links a:last-child {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 560px) {
+  .amevuri-home .hero.hero-v2 {
+    padding-top: 101px !important;
+  }
+  .amevuri-home .hero.hero-v2 .hero-copy h1 {
+    font-size: clamp(3rem, 12.5vw, 4.5rem) !important;
+  }
+  .amevuri-home .hero.hero-v2 .hero-art-v4 {
+    min-height: 235px !important;
+  }
+  .amevuri-home .hero.hero-v2 .hero-art-v4 > img.hero-product-photo {
+    max-height: 235px !important;
+    width: min(100%, 320px) !important;
+  }
+  .amevuri-home .delivery-banner-title {
+    font-size: 26px;
+  }
+  .amevuri-home .home-category-section {
+    padding: 24px 16px;
+  }
+  .amevuri-home .home-category-section .home-buying-shortcuts-links a {
+    min-height: 76px;
+  }
+}
