@@ -30,8 +30,10 @@ const fetchMock = async (url) => {
 assert.deepEqual(await checkFreeShippingDestination("24220-000", fetchMock), { eligible: true, verified: true });
 assert.equal(calls, 1);
 assert.equal((await checkFreeShippingDestination("24220000", async () => { throw new Error("network"); })).eligible, false);
-assert.equal((await checkFreeShippingDestination("24220000", async () => ({ ok: true, json: async () => ({...address("Icaraí"), cep:"99999999"}) }))).eligible, false);
-assert.equal((await checkFreeShippingDestination("24220000", async () => ({ ok: true, json: async () => ({...address("Icaraí"), bairro:""}) }))).eligible, false);
+const mismatched = await checkFreeShippingDestination("24220000", async () => ({ok:true,json:async()=>({cep:"99999999",bairro:"Icaraí",localidade:"Niterói",uf:"RJ"})}));
+assert.equal(mismatched.eligible,false);
+const missingBairro = await checkFreeShippingDestination("24220000", async () => ({ok:true,json:async()=>({cep:"24220000",bairro:"",localidade:"Niterói",uf:"RJ"})}));
+assert.equal(missingBairro.eligible,false);
 assert.equal((await checkFreeShippingDestination("abc", fetchMock)).eligible, false);
 
 const quotes = [
