@@ -479,13 +479,13 @@
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ postalCode: cep }),
         }, 12000);
-        if (version !== quoteVersion || String(postalInput.value).replace(/\\D/g, "") !== cep) return;
+        if (version !== quoteVersion || String(postalInput.value).replace(/\D/g, "") !== cep) return;
         if (!checked.r.ok || !checked.data.ok) {
           setShippingStatus(checked.data.error || "Não foi possível confirmar o CEP. Tente novamente.", "error");
           return;
         }
         const verified = checked.data.address;
-        const normalizeAddress = (value) => String(value || "").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").trim().toLowerCase().replace(/\\s+/g, " ");
+        const normalizeAddress = (value) => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase().replace(/\s+/g, " ");
         if (
           (cityInput?.value && normalizeAddress(cityInput.value) !== normalizeAddress(verified.city)) ||
           (stateInput?.value && normalizeAddress(stateInput.value) !== normalizeAddress(verified.state))
