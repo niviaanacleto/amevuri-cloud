@@ -359,6 +359,23 @@
     const postalInput = form?.elements?.namedItem("postalCode");
     const cityInput = form?.elements?.namedItem("city");
     const stateInput = form?.elements?.namedItem("state");
+    const streetInput = form?.elements?.namedItem("street");
+    const neighborhoodInput = form?.elements?.namedItem("neighborhood");
+    const addressReview = form?.querySelector("[data-address-review]");
+    const addressReviewDetail = form?.querySelector("[data-address-review-detail]");
+    const addressReviewAccept = form?.querySelector("[data-address-review-accept]");
+    const addressReviewKeep = form?.querySelector("[data-address-review-keep]");
+    const generalAddressNote = form?.querySelector("[data-address-general]");
+    let pendingAddress = null;
+    let confirmedPostalCode = "";
+    let confirmedAddressFields = "";
+    const addressSnapshot = () => JSON.stringify({
+      postalCode: String(postalInput?.value || "").replace(/\D/g, ""),
+      street: streetInput?.value.trim() || "",
+      neighborhood: neighborhoodInput?.value.trim() || "",
+      city: cityInput?.value.trim() || "",
+      state: stateInput?.value.trim() || "",
+    });
     const priveBox = root.querySelector("[data-prive-checkout]");
     const priveSelect = root.querySelector("[data-prive-credit]");
     const priveNote = root.querySelector("[data-prive-credit-note]");
@@ -423,6 +440,29 @@
       }
     };
 
+    const resetAddressConfirmation = () => {
+      pendingAddress = null;
+      confirmedPostalCode = "";
+      confirmedAddressFields = "";
+      if (addressReview) addressReview.hidden = true;
+      if (generalAddressNote) generalAddressNote.hidden = true;
+    };
+    const confirmAddress = (applyReference) => {
+      if (!pendingAddress) return;
+      if (applyReference) {
+        if (streetInput && pendingAddress.street) streetInput.value = pendingAddress.street;
+        if (neighborhoodInput && pendingAddress.neighborhood)
+          neighborhoodInput.value = pendingAddress.neighborhood;
+      }
+      confirmedPostalCode = pendingAddress.postalCode;
+      confirmedAddressFields = addressSnapshot();
+      pendingAddress = null;
+      if (addressReview) addressReview.hidden = true;
+      setShippingStatus("Endereço conferido. Clique em Calcular frete para consultar as opções.");
+    };
+    addressReviewAccept?.addEventListener("click", () => confirmAddress(true));
+    addressReviewKeep?.addEventListener("click", () => confirmAddress(false));
+
     const resetShipping = () => {
       selectedShipping = null;
       quoteBox.innerHTML = "";
@@ -452,12 +492,14 @@
         .replace(/\D/g, "")
         .slice(0, 8);
       postalInput.value = digits;
+      resetAddressConfirmation();
     });
 
-    for (const field of [cityInput, stateInput]) {
+    for (const field of [streetInput, neighborhoodInput, cityInput, stateInput]) {
       field?.addEventListener("input", () => {
         quoteVersion++;
         resetShipping();
+        resetAddressConfirmation();
         setShippingStatus("O endereço foi alterado. Confira o CEP e calcule o frete novamente.");
       });
     }
@@ -500,6 +542,29 @@
         }
         if (cityInput && !cityInput.value.trim()) cityInput.value = verified.city;
         if (stateInput && !stateInput.value.trim()) stateInput.value = verified.state;
+        if (generalAddressNote)
+          generalAddressNote.hidden = Boolean(verified.street && verified.neighborhood);
+        if (
+          (verified.street || verified.neighborhood) &&
+          (confirmedPostalCode !== cep || confirmedAddressFields !== addressSnapshot())
+        ) {
+          pendingAddress = verified;
+          if (addressReviewDetail) {
+            const details = [
+              verified.street,
+              verified.neighborhood,
+              `${verified.city}/${verified.state}`,
+            ].filter(Boolean);
+            addressReviewDetail.textContent = details.join(" · ");
+          }
+          if (addressReview) addressReview.hidden = false;
+          setShippingStatus(
+            "Confira a rua e o bairro encontrados pelo CEP e escolha uma das opções acima antes de calcular o frete.",
+            "notice",
+          );
+          return;
+        }
+        if (addressReview) addressReview.hidden = true;
         const { r, data } = await fetchJson(
           "/api/shipping-quote",
           {
@@ -570,6 +635,11 @@
 
     payBtn?.addEventListener("click", async () => {
       if (!form.reportValidity()) return;
+      if (pendingAddress || (addressReview && !addressReview.hidden)) {
+        setStatus("Confirme os dados encontrados pelo CEP antes de prosseguir.", "notice");
+        addressReview?.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
       if (!selectedShipping) {
         setShippingStatus(
           "Calcule e selecione o frete antes de continuar.",
