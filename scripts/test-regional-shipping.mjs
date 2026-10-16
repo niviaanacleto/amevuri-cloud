@@ -19,13 +19,22 @@ assert.equal(isFreeShippingNeighborhood(address("Copacabana", "Niterói")), fals
 assert.equal(isFreeShippingNeighborhood(address("Icaraí", "Rio de Janeiro")), false);
 assert.equal(isFreeShippingNeighborhood(address("Icaraí", "São Gonçalo")), false);
 assert.equal(isFreeShippingNeighborhood(address("")), false);
+const oceanica = ["Cafubá", "Camboinhas", "Engenho do Mato", "Itacoatiara", "Itaipu", "Jacaré", "Jardim Imbuí", "Maravista", "Piratininga", "Santo Antônio", "Serra Grande"];
+const zonaSul = ["Botafogo", "Catete", "Copacabana", "Cosme Velho", "Flamengo", "Gávea", "Glória", "Humaitá", "Ipanema", "Jardim Botânico", "Lagoa", "Laranjeiras", "Leblon", "Leme", "São Conrado", "Urca", "Vidigal", "Rocinha"];
+for (const bairro of oceanica)
+  assert.equal(isFreeShippingNeighborhood(address(bairro)), true, "Niterói: " + bairro);
+for (const bairro of zonaSul)
+  assert.equal(isFreeShippingNeighborhood(address(bairro, "Rio de Janeiro")), true, "Rio: " + bairro);
+for (const bairro of ["Tijuca", "Barra da Tijuca", "Recreio dos Bandeirantes", "Centro", "Méier"])
+  assert.equal(isFreeShippingNeighborhood(address(bairro, "Rio de Janeiro")), false, "Fora da Zona Sul: " + bairro);
+
 assert.equal(isFreeShippingNeighborhood(address("Icaraí", "Niterói", "SP")), false);
 
 let calls = 0;
 const fetchMock = async (url) => {
   calls++;
   assert.equal(url, "https://viacep.com.br/ws/24220000/json/");
-  return { ok: true, json: async () => address("Icaraí") };
+  return { ok: true, json: async () => ({ ...address("Icaraí"), cep: "24220-000" }) };
 };
 assert.deepEqual(await checkFreeShippingDestination("24220-000", fetchMock), { eligible: true, verified: true });
 assert.equal(calls, 1);
