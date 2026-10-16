@@ -357,6 +357,8 @@
     const payBtn = root.querySelector("[data-go-payment]");
     const status = root.querySelector("[data-checkout-status]");
     const postalInput = form?.elements?.namedItem("postalCode");
+    const cityInput = form?.elements?.namedItem("city");
+    const stateInput = form?.elements?.namedItem("state");
     const priveBox = root.querySelector("[data-prive-checkout]");
     const priveSelect = root.querySelector("[data-prive-credit]");
     const priveNote = root.querySelector("[data-prive-credit-note]");
@@ -452,6 +454,13 @@
       postalInput.value = digits;
     });
 
+    for (const field of [cityInput, stateInput]) {
+      field?.addEventListener("input", () => {
+        quoteVersion++;
+        resetShipping();
+        setShippingStatus("O endereço foi alterado. Confira o CEP e calcule o frete novamente.");
+      });
+    }
     quoteBtn?.addEventListener("click", async () => {
       const cep = String(postalInput?.value || "").replace(/\D/g, "");
       if (cep.length !== 8) {
@@ -465,6 +474,32 @@
       resetShipping();
       setShippingStatus("Consultando transportadoras e prazos…", "notice");
       try {
+        const checked = await fetchJson("/api/validate-postal-address", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ postalCode: cep }),
+        }, 12000);
+        if (version !== quoteVersion || String(postalInput.value).replace(/\\D/g, "") !== cep) return;
+        if (!checked.r.ok || !checked.data.ok) {
+          setShippingStatus(checked.data.error || "Não foi possível confirmar o CEP. Tente novamente.", "error");
+          return;
+        }
+        const verified = checked.data.address;
+        const normalizeAddress = (value) => String(value || "").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").trim().toLowerCase().replace(/\\s+/g, " ");
+        if (
+          (cityInput?.value && normalizeAddress(cityInput.value) !== normalizeAddress(verified.city)) ||
+          (stateInput?.value && normalizeAddress(stateInput.value) !== normalizeAddress(verified.state))
+        ) {
+          cityInput.value = verified.city;
+          stateInput.value = verified.state;
+          setShippingStatus(
+            `O CEP corresponde a ${verified.city}/${verified.state}. Corrigimos cidade e UF. Confira o endereço e clique em Calcular frete novamente.`,
+            "notice"
+          );
+          return;
+        }
+        if (cityInput && !cityInput.value.trim()) cityInput.value = verified.city;
+        if (stateInput && !stateInput.value.trim()) stateInput.value = verified.state;
         const { r, data } = await fetchJson(
           "/api/shipping-quote",
           {
@@ -597,6 +632,10 @@
               "notice",
             );
             resetShipping();
+          } else if (String(d.code || "").startsWith("POSTAL_")) {
+            setStatus(d.error || "Confira o endereço informado e calcule novamente o frete.", "error");
+            resetShipping();
+            cityInput?.focus();
           } else if (d.code === "SHIPPING_NOT_AUTHORIZED")
             setStatus(
               "O frete está temporariamente indisponível. Tente novamente em instantes.",
