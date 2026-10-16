@@ -14,6 +14,7 @@ import {
   deactivateCheckout,
 } from "./providers/sumup.js";
 import * as ME from "./providers/melhor-envio.js";
+import { applyRegionalFreeShipping } from "./lib/regional-free-shipping.js";
 import {
   emailConfigured,
   notifyOrder,
@@ -705,7 +706,9 @@ async function routeApi(req, env, ctx, path) {
         postalCode: body.postalCode,
         items,
       });
-      return json({ ok: true, ...result });
+      const subtotal = validateItems(body.items).subtotal;
+      const promotional = await applyRegionalFreeShipping({ postalCode: result.postalCode, subtotal, quotes: result.quotes });
+      return json({ ok: true, ...result, ...promotional });
     }
     if (path === "/api/create-checkout") {
       if (req.method !== "POST")
@@ -783,7 +786,12 @@ async function routeApi(req, env, ctx, path) {
         postalCode: customer.postalCode,
         items: validated.items,
       });
-      const authoritative = ship.quotes.find((q) => q.id === selectedId);
+      const promotion = await applyRegionalFreeShipping({
+        postalCode: ship.postalCode,
+        subtotal: validated.subtotal,
+        quotes: ship.quotes,
+      });
+      const authoritative = promotion.quotes.find((q) => q.id === selectedId);
       if (
         !authoritative ||
         !Number.isFinite(Number(body.shipping.price)) ||
