@@ -5357,3 +5357,53 @@ img.img-failed {
 @media(max-width:850px){
   .aroma-lead-capture{grid-template-columns:1fr;gap:40px}
 }
+
+/* Confirmação de endereço por CEP, com a mesma linguagem visual do checkout. */
+.checkout-address-review,
+.checkout-address-general {
+  grid-column: 1 / -1;
+  margin: 8px 0 4px;
+  padding: 18px 20px;
+  border-left: 2px solid var(--gold);
+  background: rgba(182, 138, 67, 0.075);
+  color: #5d665f;
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+.checkout-address-review[hidden],
+.checkout-address-general[hidden] {
+  display: none;
+}
+.checkout-address-review-heading {
+  color: var(--green);
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  margin: 0 0 6px;
+}
+.checkout-address-review-detail {
+  color: var(--green);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  margin: 0 0 8px;
+}
+.checkout-address-review-hint { margin: 0 0 16px; }
+.checkout-address-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.checkout-address-review-actions .btn {
+  min-width: 0;
+  white-space: normal;
+  text-align: center;
+}
+@media (max-width: 560px) {
+  .checkout-address-review,
+  .checkout-address-general { padding: 16px; }
+  .checkout-address-review-actions {
+    flex-direction: column;
+  }
+  .checkout-address-review-actions .btn {
+    width: 100%;
+  }
+}

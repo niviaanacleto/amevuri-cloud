@@ -222,6 +222,28 @@ test("Validação de CEP identifica município e UF antes da cotação", async (
   assert.equal(notFound.data.code, "POSTAL_NOT_FOUND");
 });
 
+test("Consulta de CEP retorna bairro e logradouro para confirmação, sem sobrescrever o endereço", async () => {
+  const h = await harness();
+  const result = await h.api("/api/validate-postal-address", { postalCode: "01001000" });
+  assert.equal(result.status, 200);
+  assert.equal(result.data.address.street, "Praça da Sé");
+  assert.equal(result.data.address.neighborhood, "Sé");
+  assert.equal(result.data.address.city, "São Paulo");
+  assert.equal(result.data.address.state, "SP");
+});
+
+test("CEPs gerais sem rua ou bairro continuam válidos para o checkout", async () => {
+  const h = await harness();
+  h.state.lookupAddress = { cep: "01001-000", localidade: "São Paulo", uf: "SP", logradouro: "", bairro: "" };
+  const lookup = await h.api("/api/validate-postal-address", { postalCode: "01001000" });
+  assert.equal(lookup.status, 200);
+  assert.equal(lookup.data.address.street, "");
+  assert.equal(lookup.data.address.neighborhood, "");
+  const checkout = await h.api("/api/create-checkout", payload());
+  assert.equal(checkout.status, 200);
+  assert.equal(h.state.checkouts.size, 1);
+});
+
 test("Checkout rejeita CEP de outra cidade e UF antes de reservar ou cobrar", async () => {
   const h = await harness();
   for (const patch of [{ city: "Niterói" }, { state: "RJ" }, { city: "  Rio de Janeiro  " }]) {
