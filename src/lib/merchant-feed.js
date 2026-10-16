@@ -17,6 +17,31 @@ export const MERCHANT_PRODUCT_META = Object.freeze({
   "mini-rosa-20": {"image":"/assets/aromas/rosa-bulgara-acafrao/latinha20g.png","path":"/miniatura-vela-rosa-acafrao","description":"Rosa e neroli anunciam uma composição de presença marcante. Oud, açafrão e chocolate preto criam contraste no coração, enquanto patchouli e madeira ambarada sustentam um fundo profundo.","category":"Miniatura de Vela"},
   "difusor-rosa-100": {"image":"/assets/aromas/rosa-bulgara-acafrao/DifusorRosa.png","path":"/difusor-varetas-rosa-acafrao","description":"Rosa e neroli anunciam uma composição de presença marcante. Oud, açafrão e chocolate preto criam contraste no coração, enquanto patchouli e madeira ambarada sustentam um fundo profundo.","category":"Difusor de Varetas"}
 });
+// Produtos já cadastrados manualmente e aprovados no Merchant Center em 15/10/2026.
+// Não publicar esses seis no feed de complementação: os IDs remotos diferem
+// dos códigos usados no e-commerce, o que criaria anúncios/listagens duplicados.
+// Revisar a relação antes de qualquer migração da fonte manual.
+export const MERCHANT_ALREADY_LISTED_SKUS = Object.freeze([
+  "vela-cumaru-120",
+  "home-cumaru-250",
+  "wax-cumaru-60",
+  "vela-sakura-120",
+  "home-sakura-250",
+  "wax-sakura-60"
+]);
+
+export function catalogMissingFromMerchant(products) {
+  if (!Array.isArray(products)) throw new TypeError("Catálogo indisponível.");
+  const existing = new Set(MERCHANT_ALREADY_LISTED_SKUS);
+  if (products.some(product => !product || !product.id)) {
+    throw new TypeError("Produto do catálogo sem código.");
+  }
+  if (MERCHANT_ALREADY_LISTED_SKUS.some(id => !products.some(product => product.id === id))) {
+    throw new Error("A lista de produtos existentes deve ser reavaliada.");
+  }
+  return products.filter(product => !existing.has(product.id));
+}
+
 const esc = (value) => String(value ?? "")
   .replace(/&/g, "&amp;")
   .replace(/</g, "&lt;")
