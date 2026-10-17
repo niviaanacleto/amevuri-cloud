@@ -24,6 +24,8 @@
 
 ## Links de campanha
 
+Na página inicial, entrega gratuita e trio compartilham um carrossel no topo, antes da vitrine de produtos. Entrega aparece primeiro, com setas, indicadores e navegação por teclado para alternar manualmente. O banner do trio leva à landing page. Sem JavaScript, ambos os banners permanecem visíveis como alternativa. A comunicação e as regras de entrega regional existentes foram preservadas.
+
 - Instagram: `https://amevuri.com.br/trio-presenteavel?utm_source=instagram&utm_medium=social&utm_campaign=trio_novembro_2026`
 - TikTok: `https://amevuri.com.br/trio-presenteavel?utm_source=tiktok&utm_medium=social&utm_campaign=trio_novembro_2026`
 - WhatsApp: `https://amevuri.com.br/trio-presenteavel?utm_source=whatsapp&utm_medium=mensagem&utm_campaign=trio_novembro_2026`

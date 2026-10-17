@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/home-product-carousel.css" />
     <link rel="stylesheet" href="/qualified-shopping.css" />
     <link rel="stylesheet" href="/trio-home.css" />
+    <script src="/trio-home.js" defer></script>
 <title>
       AMEVURI | Perfumaria para o Lar, Velas Botânicas e Design Sensorial
     </title>
@@ -103,7 +104,8 @@
         <a class="nav-cta" href="/colecao">Explorar produtos</a>
       </nav>
     </header>
-    <aside class="delivery-banner" aria-label="Entrega gratuita em regiões selecionadas">
+    <section class="home-campaigns" aria-label="Campanhas AMEVURI" aria-roledescription="carrossel">
+    <aside class="delivery-banner" data-campaign-slide role="group" aria-roledescription="slide" aria-label="1 de 2: Entrega gratuita" tabindex="-1">
       <div class="delivery-banner-inner">
         <div class="delivery-banner-icon" aria-hidden="true">
           <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
@@ -122,10 +124,21 @@
           <p class="delivery-banner-regions">Centro, Icaraí, Região Oceânica e Zona Sul do Rio de Janeiro.</p>
           <p class="delivery-banner-minimum">Em pedidos a partir de <strong>R$ 70,00</strong>.</p>
           <p class="delivery-banner-instructions">Para essas regiões, compre pelo site ou pelo WhatsApp: <strong>(21) 97113-3616</strong>. A gratuidade depende da confirmação do CEP.</p>
+          <button class="campaign-inline" type="button" data-campaign-next>Conheça também o Trio Presenteável <span aria-hidden="true">→</span></button>
         </div>
         <a class="delivery-banner-link" href="https://wa.me/5521971133616?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido%20a%20partir%20de%20R%24%2070%2C00%20com%20entrega%20gratuita%20para%20a%20regi%C3%A3o%20atendida%20pela%20AMEVURI." target="_blank" rel="noopener noreferrer">Pedir pelo WhatsApp <span aria-hidden="true">↗</span></a>
       </div>
     </aside>
+      <section class="trio-home" data-campaign-slide role="group" aria-roledescription="slide" aria-label="2 de 2: Trio Presenteável" id="trio-presenteavel" aria-labelledby="trio-home-title" tabindex="-1">
+        <a class="trio-home-image" href="/trio-presenteavel" tabindex="-1" aria-hidden="true"><img src="/assets/trio/caixa-verde.webp" alt="" width="1448" height="1086" loading="lazy" /></a>
+        <div><p>TRIO PRESENTEÁVEL · PRIMEIRO LOTE COM 20 KITS</p><h2 id="trio-home-title">Um presente escolhido<br /><em>com carinho.</em></h2><p>Três velas de 50 g, na caixa cartonada com ímã, por R$ 119,99. Vendas em 7 de novembro de 2026.</p><a class="btn btn-primary" href="/trio-presenteavel">Conhecer o trio e entrar na lista ↗</a><small>Cadastro gratuito. A inscrição não reserva uma unidade.</small></div>
+      </section>
+      <div class="campaign-controls" data-campaign-controls hidden>
+        <button class="campaign-arrow campaign-prev" type="button" data-campaign-prev aria-label="Banner anterior"><span aria-hidden="true">‹</span></button>
+        <div class="campaign-pagination"><div class="campaign-dots" role="group" aria-label="Escolher banner"><button type="button" data-campaign-index="0" aria-label="Mostrar banner de entrega gratuita" aria-pressed="true"></button><button type="button" data-campaign-index="1" aria-label="Mostrar banner do Trio Presenteável" aria-pressed="false"></button></div><span data-campaign-status role="status" aria-live="polite">Entrega gratuita · 1 de 2</span></div>
+        <button class="campaign-arrow campaign-next" type="button" data-campaign-next aria-label="Próximo banner"><span aria-hidden="true">›</span></button>
+      </div>
+    </section>
 
     <section class="home-product-carousel" data-home-product-carousel aria-labelledby="home-product-title" aria-roledescription="carrossel">
       <div class="home-product-top">
@@ -218,10 +231,7 @@
         </div>
       </section>
 
-      <section class="trio-home" aria-labelledby="trio-home-title">
-        <a class="trio-home-image" href="/trio-presenteavel" tabindex="-1" aria-hidden="true"><img src="/assets/trio/caixa-verde.webp" alt="" width="1448" height="1086" loading="lazy" /></a>
-        <div><p>TRIO PRESENTEÁVEL · PRIMEIRO LOTE COM 20 KITS</p><h2 id="trio-home-title">Um presente escolhido<br /><em>com carinho.</em></h2><p>Três fragrâncias na caixa cartonada com ímã, por R$ 119,99. Vendas em 7 de novembro de 2026.</p><a class="btn btn-primary" href="/trio-presenteavel">Conhecer o trio e entrar na lista ↗</a><small>Cadastro gratuito. A inscrição não reserva uma unidade.</small></div>
-      </section>
+
 
       <section class="collection-preview section-pad">
         <div class="section-head reveal">
