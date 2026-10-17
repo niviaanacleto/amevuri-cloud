@@ -43,3 +43,7 @@
 - R$ 39,99: vela de 100 g, copo tipo patê de 156 ml. É uma apresentação de entrada distinta, não uma correção do preço de 130 g.
 - R$ 119,99: trio com 3 velas de 50 g, copos de 70 ml com tampa de bambu e caixa premium com ímã.
 - Não comparar o trio de 50 g por vela ao preço de três velas de 100 g ou 130 g como se fossem produtos iguais.
+
+## Vídeo de Natal
+
+O arquivo natal.mp4 fornecido pela usuária foi incorporado após a apresentação principal, com controles, reprodução voluntária, capa e preload="none". A versão para web mantém 1080 × 1920 e aproximadamente 14,67 segundos, com áudio, sem mudar a montagem. O original permanece intacto fora do repositório. O visitante não recebe reprodução com som automático. O cadastro continua acessível ao lado do vídeo.
