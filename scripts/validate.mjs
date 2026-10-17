@@ -104,9 +104,11 @@ for (const f of files.filter((f) => f.endsWith(".html"))) {
   const visible = source
     .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, "")
     .replace(/<[^>]+>/g, "");
-  if (/[-—–]|\b(?:120|60)\s*g\b/.test(visible))
+  // Allow correct Portuguese compounds (segunda-feira, bem-estar). Block
+  // typographical dashes used as separators and superseded product weights.
+  if (/[—–]|(?:^|\s)-(?=\s)|\b(?:120|60)\s*g\b/m.test(visible))
     errors.push(
-      `${path.basename(f)}: texto contém hífen, travessão ou peso antigo.`,
+      `${path.basename(f)}: texto contém travessão, hífen separador ou peso antigo.`,
     );
 }
 const checkout = fs.readFileSync(path.join(pub, "checkout.html"), "utf8");

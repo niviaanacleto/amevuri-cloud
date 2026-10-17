@@ -207,9 +207,10 @@ export async function harness() {
     body,
     headers = {},
     method = body === undefined ? "GET" : "POST",
+    baseOrigin = "http://localhost",
   ) => {
     const res = await main.namespace.default.fetch(
-      new Request("http://localhost" + route, {
+      new Request(new URL(route, baseOrigin), {
         method,
         headers: { "content-type": "application/json", ...headers },
         ...(body === undefined

@@ -16,6 +16,7 @@ const types = {
   ".webp": "image/webp",
   ".png": "image/png",
   ".jpg": "image/jpeg",
+  ".mp4": "video/mp4",
   ".svg": "image/svg+xml",
   ".xml": "application/xml",
   ".txt": "text/plain",
@@ -32,6 +33,7 @@ http
           body || undefined,
           req.headers,
           req.method,
+          u.origin,
         );
         res.writeHead(r.status, {
           "content-type": "application/json",

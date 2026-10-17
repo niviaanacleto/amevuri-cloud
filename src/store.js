@@ -538,6 +538,34 @@ export class AmevuriStore extends DurableObject {
     for (const member of members.values()) await this.expirePrivePoints(member.id);
     return members.size;
   }
+  async guardTrioInterest(ipHash) {
+    return this.ctx.storage.transaction(async (t) => {
+      const key = `trio-rate:${ipHash}`;
+      const current = Date.now();
+      const rate = (await t.get(key)) || { count: 0, start: current };
+      if (current - rate.start >= 3600000) Object.assign(rate, { count: 0, start: current });
+      if (rate.count >= 8) throw Object.assign(new Error("Aguarde um pouco antes de tentar novamente."), { status: 429 });
+      rate.count++;
+      await t.put(key, rate);
+    });
+  }
+  async saveTrioInterest(phoneHash, profile) {
+    return this.ctx.storage.transaction(async (t) => {
+      const key = `trio-interest:${phoneHash}`;
+      const previous = await t.get(key);
+      // Repeated registrations cannot replace another person's name or attribution.
+      if (previous) return { created: false };
+      await t.put(key, { ...profile, id: crypto.randomUUID(), createdAt: now(), consentAt: now() });
+      return { created: true };
+    });
+  }
+  async listTrioInterests() {
+    const rows = await this.ctx.storage.list({ prefix: "trio-interest:" });
+    return [...rows.values()].sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  }
+  async deleteTrioInterest(phoneHash) {
+    await this.ctx.storage.delete(`trio-interest:${phoneHash}`);
+  }
   async guardAromaVote(ipHash) {
     return this.ctx.storage.transaction(async (t) => {
       const key = `aroma-rate:${ipHash}`;

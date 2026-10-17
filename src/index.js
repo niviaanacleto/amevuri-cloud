@@ -4,6 +4,7 @@ import { AmevuriStore, storeStub } from "./store.js";
 import { CATALOG, catalogArray, validateItems } from "./lib/catalog.js";
 import { renderMerchantFeed, catalogMissingFromMerchant } from "./lib/merchant-feed.js";
 import { json, html, cleanDigits } from "./lib/http.js";
+import { normalizeTrioPhone, validateTrioInterest } from "./lib/trio-interest.js";
 import {
   sumupConfigured,
   createCheckout as createSumUpCheckout,
@@ -302,6 +303,31 @@ async function routeApi(req, env, ctx, path) {
         status: "online",
         routing: "static-assets-native",
       });
+    if (path === "/api/trio-interest") {
+      if (req.method !== "POST") return json({ ok: false, error: "Método não permitido." }, 405);
+      if (req.headers.get("origin") && req.headers.get("origin") !== new URL(req.url).origin)
+        return json({ ok: false, error: "Origem não permitida." }, 403);
+      const body = await readBody(req);
+      if (clean(body.company)) return json({ ok: true, registered: true }, 201);
+      const profile = validateTrioInterest(body);
+      const ip = req.headers.get("cf-connecting-ip") || "unknown";
+      await store.guardTrioInterest(await sha256(`trio-ip:${ip}`));
+      await store.saveTrioInterest(await sha256(`trio-phone:${profile.phone}`), profile);
+      // Same response for a new or existing phone. Do not expose membership.
+      return json({ ok: true, registered: true }, 201);
+    }
+    if (path === "/api/admin-trio-interest") {
+      if (!authorized(req, env)) return json({ ok: false, error: "Não autorizado." }, 401);
+      if (req.method === "GET") return json({ ok: true, contacts: await store.listTrioInterests() });
+      if (req.method === "DELETE") {
+        const body = await readBody(req);
+        const phone = normalizeTrioPhone(body.phone);
+        if (!phone) return json({ ok: false, error: "Informe um WhatsApp válido." }, 400);
+        await store.deleteTrioInterest(await sha256(`trio-phone:${phone}`));
+        return json({ ok: true });
+      }
+      return json({ ok: false, error: "Método não permitido." }, 405);
+    }
     if (path === "/api/aroma-vote") {
       if (req.method !== "POST")
         return json({ ok: false, error: "Método não permitido." }, 405);
