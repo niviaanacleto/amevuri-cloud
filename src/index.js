@@ -23,6 +23,7 @@ import {
   notifyPriveAccessCode,
   notifyPriveWelcome,
   retryEmails,
+  notifyConfigurationTest,
 } from "./providers/email.js";
 import { markPaid, setFulfillment } from "./lib/order-events.js";
 export { AmevuriStore };
@@ -1256,6 +1257,7 @@ async function hourly(env) {
       "",
     );
   await retryEmails(env, store);
+  await notifyConfigurationTest(env, store).catch((error) => console.error("AMEVURI email configuration test", error.message));
   await store.expirePriveBatch(50);
   for (let o of await store.orderPage(10)) {
     try {
