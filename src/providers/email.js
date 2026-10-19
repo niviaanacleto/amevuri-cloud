@@ -184,16 +184,3 @@ export async function retryEmails(env, store) {
       console.error("Email pendente", entry.key, error.code || "SEND_FAILED");
     }
 }
-
-export async function notifyConfigurationTest(env, store) {
-  const recipient = "amevuri@amevuri.com.br";
-  for (const kind of ["cliente", "administracao"]) {
-    const key = "amevuri-config-test-20261019-v1:" + kind;
-    const entry = await store.enqueueEmail(key, {
-      to: recipient,
-      subject: "TESTE AMEVURI · " + (kind === "cliente" ? "email ao cliente" : "aviso administrativo"),
-      html: "<h1>Teste de envio AMEVURI</h1><p>Mensagem de teste autorizada em 19/10/2026 para validar o envio transacional do site usando sua configuração de produção.</p><p>Fluxo representado: " + kind + ".</p><p>Este teste não corresponde a uma compra, cobrança ou cadastro. Nenhuma ação é necessária.</p>"
-    });
-    await deliver(env, store, key, entry);
-  }
-}
