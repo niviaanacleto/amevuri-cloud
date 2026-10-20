@@ -323,6 +323,46 @@
     });
   }
 
+  function parseMetaCheckout(search, products) {
+    const params = new URLSearchParams(search);
+    if (!params.has("products")) return null;
+    if (params.getAll("products").length !== 1) throw new Error("Seleção de produtos inválida.");
+    if (params.get("coupon")) throw new Error("Este cupom não está disponível no site. Volte à loja para revisar sua seleção.");
+    const raw = params.get("products");
+    if (!raw || raw.length > 4096) throw new Error("Seleção de produtos inválida.");
+    const entries = raw.split(",");
+    if (entries.length > 60) throw new Error("Seleção de produtos inválida.");
+    const grouped = new Map();
+    for (const entry of entries) {
+      const parts = entry.split(":");
+      if (parts.length !== 2 || !Object.hasOwn(products, parts[0]) || !/^[1-9][0-9]*$/.test(parts[1]))
+        throw new Error("Não foi possível reconhecer sua seleção. Volte à loja e escolha os produtos novamente.");
+      const quantity = Number(parts[1]) + (grouped.get(parts[0]) || 0);
+      if (!Number.isSafeInteger(quantity) || quantity > 10)
+        throw new Error("Você pode selecionar até 10 unidades de cada produto.");
+      grouped.set(parts[0], quantity);
+    }
+    return [...grouped].map(([id, quantity]) => ({ id, quantity }));
+  }
+
+  function receiveMetaCheckout() {
+    const root = document.querySelector("[data-checkout]");
+    if (!root) return true;
+    try {
+      const items = parseMetaCheckout(location.search, PRODUCTS);
+      if (items) localStorage.setItem(CART_KEY, JSON.stringify(items));
+      return true;
+    } catch (error) {
+      root.querySelector("[data-checkout-body]").hidden = true;
+      const empty = root.querySelector("[data-checkout-empty]");
+      empty.hidden = false;
+      empty.querySelector("h2").textContent = "Vamos revisar sua seleção.";
+      empty.querySelector("p").textContent = error.message || "Não foi possível carregar os produtos. Volte à loja e tente novamente.";
+      empty.setAttribute("role", "alert");
+      return false;
+    }
+  }
+
   function checkoutPage() {
     const root = document.querySelector("[data-checkout]");
     if (!root) return;
@@ -826,6 +866,7 @@
     })();
   }
 
+  const checkoutSelectionReady = receiveMetaCheckout();
   injectCartUI();
   renderCart();
   bindBuyButtons();
@@ -834,10 +875,12 @@
       .querySelectorAll("[data-format-price]:checked")
       .forEach((i) => updateProductFormat(i.name));
   });
-  checkoutPage();
+  if (checkoutSelectionReady) checkoutPage();
   orderConfirmation();
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeCart();
   });
   window.AMEVURI_CART = { addItem, getCart, PRODUCTS, money };
 })();
+
+
