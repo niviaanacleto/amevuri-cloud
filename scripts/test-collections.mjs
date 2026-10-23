@@ -45,7 +45,7 @@ console.log(`PASS: seis páginas, ${photos} imagens de formatos, preços cadastr
 import { harness, payload } from './harness.mjs';
 const commerceText=fs.readFileSync(new URL('commerce.js',pub),'utf8');
 const frontend=vm.runInNewContext('('+commerceText.split('const PRODUCTS = ')[1].split(/;\r?\n/)[0]+')');
-assert.equal(Object.keys(CATALOG).length,15);
+assert.equal(Object.keys(CATALOG).length,17);
 for(const c of collections)for(const p of c.products){
  assert(p.sku,`${c.id}/${p.key} missing SKU`);
  const registered=CATALOG[p.sku];

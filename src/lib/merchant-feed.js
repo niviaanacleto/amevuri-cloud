@@ -1,6 +1,8 @@
 /* AMEVURI | Fonte de dados do Merchant Center sincronizada com o catálogo e o estoque. 
    Informações de entrega e devolução são configuradas separadamente na conta Merchant. */
 export const MERCHANT_PRODUCT_META = Object.freeze({
+"vela-sakura-100": {"image": "/assets/vela-100g/sakura-catalogo.jpg", "path": "/vela-aromatica-100g-sakura-musk", "description": "Vela Aromática 100 g Árvore de Sakura & Musk em pote patê de vidro com tampa de madeira e caixa premium. Versão promocional do último trimestre de 2026. Quantidades limitadas, sujeitas à disponibilidade de estoque.", "category": "Vela Aromática"},
+"vela-cumaru-100": {"image": "/assets/vela-100g/cumaru-catalogo.jpg", "path": "/vela-aromatica-100g-cumaru-sandalo", "description": "Vela Aromática 100 g Cumaru & Sândalo em pote patê de vidro com tampa de madeira e caixa premium. Versão promocional do último trimestre de 2026. Quantidades limitadas, sujeitas à disponibilidade de estoque.", "category": "Vela Aromática"},
   "vela-cumaru-120": {"image":"/assets/catalog-v2/cumaru-vela.webp","path":"/vela-aromatica-cumaru-sandalo","description":"Madeiras envolventes, calor macio e cremosidade compõem uma assinatura de presença, acolhimento e profundidade.","category":"Vela Aromática"},
   "home-cumaru-250": {"image":"/assets/catalog-v2/cumaru-home-parfum.png","path":"/home-parfum-cumaru-sandalo","description":"Madeiras envolventes, calor macio e cremosidade compõem uma assinatura de presença, acolhimento e profundidade.","category":"Home Parfum"},
   "wax-cumaru-60": {"image":"/assets/catalog-v2/cumaru-wax-melts.webp","path":"/wax-melts-cumaru-sandalo","description":"Madeiras envolventes, calor macio e cremosidade compõem uma assinatura de presença, acolhimento e profundidade.","category":"Wax Melts"},

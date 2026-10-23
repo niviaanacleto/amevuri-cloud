@@ -7,6 +7,8 @@
       currency: "BRL",
     }).format(Number(n) || 0);
   const PRODUCTS = {
+"vela-cumaru-100": {"id": "vela-cumaru-100", "name": "Vela Aromática em Pote Patê", "fragrance": "Cumaru & Sândalo", "size": "100g", "price": 29.99},
+"vela-sakura-100": {"id": "vela-sakura-100", "name": "Vela Aromática em Pote Patê", "fragrance": "Árvore de Sakura & Musk", "size": "100g", "price": 29.99},
 "difusor-cumaru-100": {"id": "difusor-cumaru-100", "name": "Difusor de Varetas", "fragrance": "Cumaru & Sândalo", "size": "100 ml", "price": 49.99},
 "difusor-sakura-100": {"id": "difusor-sakura-100", "name": "Difusor de Varetas", "fragrance": "Árvore de Sakura & Musk", "size": "100 ml", "price": 49.99},
 "vela-rosa-130": {"id": "vela-rosa-130", "name": "Vela Aromática", "fragrance": "Rosa Búlgara & Açafrão", "size": "130g", "price": 69.99},

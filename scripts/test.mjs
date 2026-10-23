@@ -156,7 +156,7 @@ test("Pesos oficiais e identificadores compatíveis", async () => {
     r.data.products
       .filter((p) => p.format === "Vela aromática")
       .map((p) => p.size),
-    ["130g", "130g", "130g"],
+    ["100g", "100g", "130g", "130g", "130g"],
   );
   assert.deepEqual(
     r.data.products.filter((p) => p.format === "Wax Melts").map((p) => p.size),
