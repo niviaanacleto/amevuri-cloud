@@ -9,9 +9,9 @@ window.AMEVURI_COLLECTIONS = [
     "personality": "Quente · Cremosa · Luxuosa",
     "description": "Madeiras envolventes, calor macio e cremosidade compõem uma assinatura de presença, acolhimento e profundidade.",
     "notes": [
-      "Bergamota, Pimenta Rosa, Cardamomo",
-      "Cumaru, Íris, Jasmim, Violeta",
-      "Sândalo, Fava Tonka, Âmbar, Musk"
+      "Cumaru, Musk, Madeira de Cashmere",
+      "Sândalo, Baunilha",
+      "Madeira Seca, Cedro"
     ],
     "rooms": "Salas, quartos, closets e momentos de relaxamento.",
     "images": [
