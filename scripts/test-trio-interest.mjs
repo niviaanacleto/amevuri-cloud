@@ -46,7 +46,7 @@ dashboard = await h.api("/api/admin-trio-interest", undefined, admin);
 assert.equal(dashboard.data.contacts.length, 24);
 assert(!dashboard.data.contacts.some(contact => contact.phone === "5521999991234"));
 
-const page = fs.readFileSync(new URL("../public/trio-presenteavel.html", import.meta.url), "utf8");
+const page = fs.readFileSync(new URL("../archive/campaigns/trio-presenteavel.html", import.meta.url), "utf8");
 for (const content of ["50 g", "70 ml", "tampa de bambu", "R$ 119,99", "20 kits", "7 de novembro de 2026", "9 de novembro", "não reserva", "Política de Privacidade"]) assert(page.includes(content), content);
 assert(!/data-add-cart|application\/ld\+json|130 g|265 ml|156 ml/.test(page));
 assert(!/[—–]/.test(page), "No dashes in customer-facing copy");
