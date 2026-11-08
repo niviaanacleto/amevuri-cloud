@@ -1,4 +1,4 @@
-/* Carrossel AMEVURI: usa o catálogo existente como fonte dos 15 itens e valores. */
+/* Carrossel AMEVURI: usa as coleções e os produtos de 100 g cadastrados na sacola. */
 (() => {
   const root = document.querySelector('[data-home-product-carousel]');
   const collections = window.AMEVURI_COLLECTIONS;
@@ -12,6 +12,22 @@
       href: '/' + ({vela:'vela-aromatica',home:'home-parfum',wax:'wax-melts',mini:'miniatura-vela',difusor:'difusor-varetas'}[product.key]) + '-' + ({cumaru:'cumaru-sandalo',sakura:'sakura-musk'}[collection.id])
     }))
   );
+  // The 100 g jars are separate SKUs from the five standard collection formats.
+  for (const collection of collections) {
+    const sku = `vela-${collection.id}-100`;
+    const registered = window.AMEVURI_CART?.PRODUCTS?.[sku];
+    if (!registered) continue;
+    products.push({
+      ...registered,
+      sku,
+      name: registered.name,
+      size: '100 g · Tampa e caixa premium',
+      fragrance: collection.name,
+      family: collection.family,
+      image: `/assets/vela-100g/${collection.id}-catalogo.jpg`,
+      href: `/vela-aromatica-100g-${collection.route}`
+    });
+  }
   if (!products.length) return;
 
   const picture = root.querySelector('[data-carousel-photo]');
