@@ -2,12 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
-import { CATALOG } from '../src/lib/catalog.js';
+import { CATALOG, validateItems } from '../src/lib/catalog.js';
 const pub = new URL('../public/', import.meta.url);
 const context = {window:{}};
 vm.runInNewContext(fs.readFileSync(new URL('collections-data.js',pub),'utf8'),context);
 const collections = context.window.AMEVURI_COLLECTIONS;
-assert.equal(collections.length,3);
+assert.equal(collections.length,2);
 let photos = 0;
 for (const c of collections) {
   assert.equal(c.products.length,5);
@@ -39,13 +39,13 @@ for(const [old,current] of [['produto-cumaru-sandalo','produto-cumaru'],['produt
  const text=fs.readFileSync(new URL(old+'.html',pub),'utf8');
  assert(text.includes(`location.replace("/${current}"+location.search+location.hash)`));
 }
-console.log(`PASS: seis páginas, ${photos} imagens de formatos, preços cadastrados e rotas antigas.`);
+console.log(`PASS: quatro páginas, ${photos} imagens de formatos, preços cadastrados e rotas antigas.`);
 
 // Every displayed format must be purchasable and have complete shipping data.
 import { harness, payload } from './harness.mjs';
 const commerceText=fs.readFileSync(new URL('commerce.js',pub),'utf8');
 const frontend=vm.runInNewContext('('+commerceText.split('const PRODUCTS = ')[1].split(/;\r?\n/)[0]+')');
-assert.equal(Object.keys(CATALOG).length,17);
+assert.equal(Object.keys(CATALOG).length,12);
 for(const c of collections)for(const p of c.products){
  assert(p.sku,`${c.id}/${p.key} missing SKU`);
  const registered=CATALOG[p.sku];
@@ -60,4 +60,10 @@ for(const c of collections)for(const p of c.products){
  assert(response.data.checkoutId);
  await h.drain();
 }
-console.log('PASS: 15 formatos com catálogo, preço, estoque, frete e checkout simulado.');
+console.log('PASS: 10 formatos com catálogo, preço, estoque, frete e checkout simulado.');
+
+// Hidden fragrance must not be purchasable through a saved cart.
+for (const id of ["vela-rosa-130", "home-rosa-250", "wax-rosa-80", "mini-rosa-20", "difusor-rosa-100"]) {
+ assert(!CATALOG[id]);
+ assert.throws(() => validateItems([{id, quantity: 1}]), /Produto inválido/);
+}

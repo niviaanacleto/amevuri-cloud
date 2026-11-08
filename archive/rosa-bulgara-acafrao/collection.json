@@ -1,0 +1,67 @@
+[
+  {
+    "id": "rosa",
+    "route": "rosa-acafrao",
+    "name": "Rosa Búlgara & Açafrão",
+    "family": "Chypre Floral",
+    "color": "#682633",
+    "soft": "#f8f0f1",
+    "personality": "Floral · Especiada · Sofisticada",
+    "description": "Rosa e neroli anunciam uma composição de presença marcante. Oud, açafrão e chocolate preto criam contraste no coração, enquanto patchouli e madeira ambarada sustentam um fundo profundo.",
+    "notes": [
+      "Rosa, Neroli",
+      "Madeira Oud, Açafrão, Chocolate Preto",
+      "Patchouli, Madeira Ambarada"
+    ],
+    "rooms": "Sala, jantar, closet e atmosferas noturnas.",
+    "images": [
+      "/assets/aromas/rosa-bulgara-acafrao/velaCxRosa.png",
+      "/assets/aromas/rosa-bulgara-acafrao/homeParfumRosa.png",
+      "/assets/aromas/rosa-bulgara-acafrao/waxMeltsRosa.png",
+      "/assets/aromas/rosa-bulgara-acafrao/latinha20g.png",
+      "/assets/aromas/rosa-bulgara-acafrao/DifusorRosa.png"
+    ],
+    "products": [
+      {
+        "key": "vela",
+        "name": "Vela Aromática",
+        "size": "130g",
+        "image": "/assets/aromas/rosa-bulgara-acafrao/velaCxRosa.png",
+        "sku": "vela-rosa-130",
+        "price": 69.99
+      },
+      {
+        "key": "home",
+        "name": "Home Parfum",
+        "size": "250 ml",
+        "image": "/assets/aromas/rosa-bulgara-acafrao/homeParfumRosa.png",
+        "sku": "home-rosa-250",
+        "price": 39.99
+      },
+      {
+        "key": "wax",
+        "name": "Wax Melts",
+        "size": "80g",
+        "image": "/assets/aromas/rosa-bulgara-acafrao/waxMeltsRosa.png",
+        "sku": "wax-rosa-80",
+        "price": 39.99
+      },
+      {
+        "key": "mini",
+        "name": "Miniatura de Vela",
+        "size": "20g",
+        "image": "/assets/aromas/rosa-bulgara-acafrao/latinha20g.png",
+        "sku": "mini-rosa-20",
+        "price": 8.99
+      },
+      {
+        "key": "difusor",
+        "name": "Difusor de Varetas",
+        "size": "100 ml",
+        "image": "/assets/aromas/rosa-bulgara-acafrao/DifusorRosa.png",
+        "sku": "difusor-rosa-100",
+        "price": 49.99
+      }
+    ]
+  }
+]
