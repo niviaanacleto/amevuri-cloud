@@ -16,7 +16,7 @@ window.AMEVURI_COLLECTIONS = [
     "rooms": "Salas, quartos, closets e momentos de relaxamento.",
     "images": [
       "/assets/catalog-v2/cumaru-vela.webp",
-      "/assets/catalog-v2/cumaru-home-parfum.png",
+      "/assets/home-parfum-2026/raiz-principal.webp",
       "/assets/catalog-v2/cumaru-wax-melts.webp",
       "/assets/miniaturas/cumaru-20g.png",
       "/assets/catalog-v2/cumaru-difusor.webp"
@@ -33,9 +33,9 @@ window.AMEVURI_COLLECTIONS = [
       },
       {
         "key": "home",
-        "name": "Home Parfum",
+        "name": "Home Parfum Raiz",
         "size": "250 ml",
-        "image": "/assets/catalog-v2/cumaru-home-parfum.png",
+        "image": "/assets/home-parfum-2026/raiz-principal.webp",
         "sku": "home-cumaru-250",
         "price": 39.99
       },
@@ -82,7 +82,7 @@ window.AMEVURI_COLLECTIONS = [
     "rooms": "Quartos, closets, salas íntimas e momentos de autocuidado.",
     "images": [
       "/assets/vela.png",
-      "/assets/home-parfum.png",
+      "/assets/home-parfum-2026/flor-principal.webp",
       "/assets/wax-melts.png",
       "/assets/miniatura.png",
       "/assets/difusor.png"
@@ -98,9 +98,9 @@ window.AMEVURI_COLLECTIONS = [
       },
       {
         "key": "home",
-        "name": "Home Parfum",
+        "name": "Home Parfum Flor",
         "size": "250 ml",
-        "image": "/assets/home-parfum.png",
+        "image": "/assets/home-parfum-2026/flor-principal.webp",
         "sku": "home-sakura-250",
         "price": 39.99
       },

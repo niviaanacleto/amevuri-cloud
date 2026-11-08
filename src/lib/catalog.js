@@ -29,7 +29,7 @@ export const CATALOG = Object.freeze({
   },
   "home-cumaru-250": {
     id: "home-cumaru-250",
-    name: "Home Parfum",
+    name: "Home Parfum Raiz",
     fragrance: "Cumaru & Sândalo",
     format: "Home Parfum",
     size: "250ml",
@@ -39,7 +39,7 @@ export const CATALOG = Object.freeze({
   },
   "home-sakura-250": {
     id: "home-sakura-250",
-    name: "Home Parfum",
+    name: "Home Parfum Flor",
     fragrance: "Árvore de Sakura & Musk",
     format: "Home Parfum",
     size: "250ml",

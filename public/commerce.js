@@ -31,14 +31,14 @@
     },
     "home-cumaru-250": {
       id: "home-cumaru-250",
-      name: "Home Parfum",
+      name: "Home Parfum Raiz",
       size: "250ml",
       fragrance: "Cumaru & Sândalo",
       price: 39.99,
     },
     "home-sakura-250": {
       id: "home-sakura-250",
-      name: "Home Parfum",
+      name: "Home Parfum Flor",
       size: "250ml",
       fragrance: "Árvore de Sakura & Musk",
       price: 39.99,
@@ -290,8 +290,8 @@
       photo.src = p.id.startsWith("mini-") ? `/assets/miniaturas/${scent}-20g.png` :
         format === "home"
           ? scent === "cumaru"
-            ? "/assets/catalog-v2/cumaru-home-parfum.png"
-            : "/assets/catalog-v2/sakura-home-parfum.webp"
+            ? "/assets/home-parfum-2026/raiz-principal.webp"
+            : "/assets/home-parfum-2026/flor-principal.webp"
           : `/assets/catalog-v2/${scent}-${format}.webp`;
       photo.alt = `${p.name} ${p.size} ${p.fragrance} AMEVURI`;
       photo.classList.remove("img-failed");
