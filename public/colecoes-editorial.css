@@ -1,0 +1,119 @@
+.collection-editorial-inner {
+  width: min(100%, 1120px);
+  margin-inline: auto;
+}
+.collection-stories {
+  background: #faf7ef;
+}
+.collection-stories .section-head {
+  max-width: 760px;
+}
+.collection-story-grid,
+.collection-packaging-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 3vw, 36px);
+}
+.collection-story {
+  padding: clamp(24px, 4vw, 44px);
+  background: #fffdf8;
+  border: 1px solid #e8dfcc;
+  border-top: 2px solid #b18a46;
+}
+.collection-story:only-child {
+  grid-column: 1 / -1;
+  max-width: 760px;
+}
+.collection-story h3 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  margin-block: 12px;
+}
+.collection-story p + p {
+  margin-top: 12px;
+}
+.collection-story-source,
+.collection-art-hero figcaption {
+  font-size: .83rem;
+  color: #62594a;
+  margin-top: 16px;
+}
+.collection-signature,
+.collection-art-line {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  color: var(--scent-color);
+}
+.collection-signature {
+  margin-top: 24px;
+  font-size: 1.5rem;
+}
+.collection-art-line {
+  margin-bottom: 12px;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.15;
+}
+.collection-art-hero figure {
+  padding: clamp(16px, 4vw, 40px);
+  background: #fff;
+  border: 1px solid #ded9c9;
+}
+.collection-art-hero .hero-actions {
+  margin-top: 24px;
+}
+.collection-art-page #embalagens,
+.collection-art-page #notas {
+  scroll-margin-top: 80px;
+}
+.collection-packaging-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.collection-packaging-card {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background: #fff;
+  border: 1px solid #e8dfcc;
+}
+.collection-packaging-card > div {
+  display: grid;
+  place-items: center;
+  height: clamp(240px, 26vw, 330px);
+  padding: 20px;
+}
+.collection-art-page .collection-packaging-card img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  min-height: 0;
+}
+.collection-packaging-card figcaption {
+  padding: 16px 20px;
+  border-top: 1px solid #e8dfcc;
+  color: var(--scent-color);
+}
+.collection-art-final {
+  text-align: center;
+}
+.collection-art-final .hero-actions {
+  justify-content: center;
+  margin-top: 24px;
+}
+@media (max-width: 700px) {
+  .collection-story-grid,
+  .collection-packaging-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .collection-art-page h1 {
+    overflow-wrap: anywhere;
+  }
+}
+
+.collection-art-page .collection-packaging-card img {
+  object-fit: contain;
+}
+.collection-art-page .collection-art-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+}
