@@ -7,10 +7,10 @@
       currency: "BRL",
     }).format(Number(n) || 0);
   const PRODUCTS = {
-"vela-cumaru-100": {"id": "vela-cumaru-100", "name": "Vela Aromática em Pote Patê", "fragrance": "Cumaru & Sândalo", "size": "100g", "price": 29.99},
-"vela-sakura-100": {"id": "vela-sakura-100", "name": "Vela Aromática em Pote Patê", "fragrance": "Árvore de Sakura & Musk", "size": "100g", "price": 29.99},
-"difusor-cumaru-100": {"id": "difusor-cumaru-100", "name": "Difusor de Varetas", "fragrance": "Cumaru & Sândalo", "size": "100 ml", "price": 49.99},
-"difusor-sakura-100": {"id": "difusor-sakura-100", "name": "Difusor de Varetas", "fragrance": "Árvore de Sakura & Musk", "size": "100 ml", "price": 49.99},
+"vela-cumaru-100": {"id": "vela-cumaru-100", "name": "Vela Aromática em Pote Patê", "fragrance": "Cumaru & Sândalo", "size": "100g", "price": 40.00},
+"vela-sakura-100": {"id": "vela-sakura-100", "name": "Vela Aromática em Pote Patê", "fragrance": "Árvore de Sakura & Musk", "size": "100g", "price": 40.00},
+"difusor-cumaru-100": {"id": "difusor-cumaru-100", "name": "Difusor de Varetas", "fragrance": "Cumaru & Sândalo", "size": "100 ml", "price": 60.00},
+"difusor-sakura-100": {"id": "difusor-sakura-100", "name": "Difusor de Varetas", "fragrance": "Árvore de Sakura & Musk", "size": "100 ml", "price": 60.00},
 
 "mini-cumaru-20": {"id": "mini-cumaru-20", "name": "Miniatura de vela aromática", "size": "20g", "fragrance": "Cumaru & Sândalo", "price": 8.99},
 "mini-sakura-20": {"id": "mini-sakura-20", "name": "Miniatura de vela aromática", "size": "20g", "fragrance": "Árvore de Sakura & Musk", "price": 8.99},
@@ -34,14 +34,14 @@
       name: "Home Parfum Raiz",
       size: "250ml",
       fragrance: "Cumaru & Sândalo",
-      price: 39.99,
+      price: 50.00,
     },
     "home-sakura-250": {
       id: "home-sakura-250",
       name: "Home Parfum Flor",
       size: "250ml",
       fragrance: "Árvore de Sakura & Musk",
-      price: 39.99,
+      price: 50.00,
     },
     "wax-cumaru-60": {
       id: "wax-cumaru-60",

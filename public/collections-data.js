@@ -37,7 +37,7 @@ window.AMEVURI_COLLECTIONS = [
         "size": "250 ml",
         "image": "/assets/home-parfum-2026/raiz-principal.webp",
         "sku": "home-cumaru-250",
-        "price": 39.99
+        "price": 50.00
       },
       {
         "key": "wax",
@@ -61,7 +61,7 @@ window.AMEVURI_COLLECTIONS = [
         "size": "100 ml",
         "image": "/assets/catalog-v2/cumaru-difusor.webp",
         "sku": "difusor-cumaru-100",
-        "price": 49.99
+        "price": 60.00
       }
     ]
   },
@@ -102,7 +102,7 @@ window.AMEVURI_COLLECTIONS = [
         "size": "250 ml",
         "image": "/assets/home-parfum-2026/flor-principal.webp",
         "sku": "home-sakura-250",
-        "price": 39.99
+        "price": 50.00
       },
       {
         "key": "wax",
@@ -126,7 +126,7 @@ window.AMEVURI_COLLECTIONS = [
         "size": "100 ml",
         "image": "/assets/difusor.png",
         "sku": "difusor-sakura-100",
-        "price": 49.99
+        "price": 60.00
       }
     ]
   }
